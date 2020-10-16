@@ -43,4 +43,5 @@ int main(){
     std::cout << WordCompression("geeksforgeeks", 2) << std::endl;
     std::cout << WordCompression("abbcccb", 3) << std::endl;
     std::cout << WordCompression("bbcccb", 3) << std::endl;
+    return 0;
 }
