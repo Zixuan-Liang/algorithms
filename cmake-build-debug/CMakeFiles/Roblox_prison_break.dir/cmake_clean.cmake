@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Roblox_prison_break.dir/array/Roblox_prison_break.cpp.obj"
+  "CMakeFiles/Roblox_prison_break.dir/hash/Roblox_prison_break.cpp.obj"
   "Roblox_prison_break.exe"
   "Roblox_prison_break.exe.manifest"
   "Roblox_prison_break.pdb"
