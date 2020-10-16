@@ -21,6 +21,7 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="algorithms" targetName="Roblox_word_compression" />
+      <config projectName="algorithms" targetName="Roblox_university_career_fair" />
       <config projectName="algorithms" targetName="Roblox_paint_the_ceiling" />
     </generated>
   </component>
@@ -61,14 +62,20 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="CMake Application.Roblox_paint_the_ceiling">
+  <component name="RunManager" selected="CMake Application.Roblox_university_career_fair">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="Roblox_paint_the_ceiling" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algorithms" TARGET_NAME="Roblox_paint_the_ceiling" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algorithms" RUN_TARGET_NAME="Roblox_paint_the_ceiling">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Roblox_university_career_fair" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algorithms" TARGET_NAME="Roblox_university_career_fair" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algorithms" RUN_TARGET_NAME="Roblox_university_career_fair">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -85,6 +92,7 @@
     </configuration>
     <list>
       <item itemvalue="CMake Application.Roblox_paint_the_ceiling" />
+      <item itemvalue="CMake Application.Roblox_university_career_fair" />
       <item itemvalue="CMake Application.Roblox_word_compression" />
     </list>
   </component>
@@ -121,37 +129,41 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1602814951617" />
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1602815081287">
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1602833329111">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602815081287" />
-    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1602815081287">
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602833329111" />
+    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1602833329111">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602815081287" />
-    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1602815081287">
+    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602833329111" />
+    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1602833329111">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602815081287" />
-    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1602815081287">
+    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602833329111" />
+    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1602833329111">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602815081287" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1602806401514">
+    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602833329111" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1602833328016">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602806401514" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1602806401514">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602833328016" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1602833328016">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602806401514" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1602806401514">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602833328016" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1602833328016">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602806401514" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1602806401514">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602833328016" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1602833328016">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602806401514" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602833328016" />
+    <state x="782" y="346" key="SettingsEditor" timestamp="1602815671929">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="782" y="346" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1602815671929" />
   </component>
 </project>

@@ -155,6 +155,19 @@ Roblox_paint_the_ceiling/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_paint_the_ceiling.dir\build.make CMakeFiles/Roblox_paint_the_ceiling.dir/build
 .PHONY : Roblox_paint_the_ceiling/fast
 
+#=============================================================================
+# Target rules for targets named Roblox_university_career_fair
+
+# Build rule for target.
+Roblox_university_career_fair: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Roblox_university_career_fair
+.PHONY : Roblox_university_career_fair
+
+# fast build rule for target.
+Roblox_university_career_fair/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_university_career_fair.dir\build.make CMakeFiles/Roblox_university_career_fair.dir/build
+.PHONY : Roblox_university_career_fair/fast
+
 dp/Roblox_paint_the_ceiling.obj: dp/Roblox_paint_the_ceiling.cpp.obj
 
 .PHONY : dp/Roblox_paint_the_ceiling.obj
@@ -181,6 +194,33 @@ dp/Roblox_paint_the_ceiling.s: dp/Roblox_paint_the_ceiling.cpp.s
 dp/Roblox_paint_the_ceiling.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_paint_the_ceiling.dir\build.make CMakeFiles/Roblox_paint_the_ceiling.dir/dp/Roblox_paint_the_ceiling.cpp.s
 .PHONY : dp/Roblox_paint_the_ceiling.cpp.s
+
+greedy/Roblox_university_career_fair.obj: greedy/Roblox_university_career_fair.cpp.obj
+
+.PHONY : greedy/Roblox_university_career_fair.obj
+
+# target to build an object file
+greedy/Roblox_university_career_fair.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_university_career_fair.dir\build.make CMakeFiles/Roblox_university_career_fair.dir/greedy/Roblox_university_career_fair.cpp.obj
+.PHONY : greedy/Roblox_university_career_fair.cpp.obj
+
+greedy/Roblox_university_career_fair.i: greedy/Roblox_university_career_fair.cpp.i
+
+.PHONY : greedy/Roblox_university_career_fair.i
+
+# target to preprocess a source file
+greedy/Roblox_university_career_fair.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_university_career_fair.dir\build.make CMakeFiles/Roblox_university_career_fair.dir/greedy/Roblox_university_career_fair.cpp.i
+.PHONY : greedy/Roblox_university_career_fair.cpp.i
+
+greedy/Roblox_university_career_fair.s: greedy/Roblox_university_career_fair.cpp.s
+
+.PHONY : greedy/Roblox_university_career_fair.s
+
+# target to generate assembly for a file
+greedy/Roblox_university_career_fair.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_university_career_fair.dir\build.make CMakeFiles/Roblox_university_career_fair.dir/greedy/Roblox_university_career_fair.cpp.s
+.PHONY : greedy/Roblox_university_career_fair.cpp.s
 
 stack/Roblox_word_compression.obj: stack/Roblox_word_compression.cpp.obj
 
@@ -218,10 +258,14 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Roblox_paint_the_ceiling
+	@echo ... Roblox_university_career_fair
 	@echo ... Roblox_word_compression
 	@echo ... dp/Roblox_paint_the_ceiling.obj
 	@echo ... dp/Roblox_paint_the_ceiling.i
 	@echo ... dp/Roblox_paint_the_ceiling.s
+	@echo ... greedy/Roblox_university_career_fair.obj
+	@echo ... greedy/Roblox_university_career_fair.i
+	@echo ... greedy/Roblox_university_career_fair.s
 	@echo ... stack/Roblox_word_compression.obj
 	@echo ... stack/Roblox_word_compression.i
 	@echo ... stack/Roblox_word_compression.s

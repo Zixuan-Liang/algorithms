@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/zixua/Documents/GitHub/algorithms/greedy/Roblox_university_career_fair.cpp
+iostream
+-
+vector
+-
+algorithm
+-
+
