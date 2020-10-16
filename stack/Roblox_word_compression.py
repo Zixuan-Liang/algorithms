@@ -29,5 +29,5 @@ def word_compression(string, k):
     return result
 
 print(word_compression("geeksforgeeks", 2))
-print(word_compression("qddxxxd", 3))
-print(word_compression("ddxxxd", 3))
+print(word_compression("abbcccb", 3))
+print(word_compression("bbcccb", 3))

@@ -1,0 +1,3 @@
+C:/Users/zixua/Documents/GitHub/algorithms/stack/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/zixua/Documents/GitHub/algorithms/stack/cmake-build-debug/CMakeFiles/Roblox_word_compression.dir
+C:/Users/zixua/Documents/GitHub/algorithms/stack/cmake-build-debug/CMakeFiles/edit_cache.dir
