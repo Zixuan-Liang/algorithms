@@ -23,8 +23,10 @@
       <config projectName="algorithms" targetName="Roblox_prison_break" />
       <config projectName="algorithms" targetName="Roblox_word_compression" />
       <config projectName="algorithms" targetName="Roblox_university_career_fair" />
+      <config projectName="algorithms" targetName="Roblox_consecutive_numbers_sum" />
       <config projectName="algorithms" targetName="Roblox_paint_the_ceiling" />
       <config projectName="algorithms" targetName="Roblox_maximum_occurring_character" />
+      <config projectName="algorithms" targetName="Roblox_beautiful_subarrays" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -66,10 +68,20 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="CMake Application.Roblox_maximum_occurring_character">
+  <component name="RunManager" selected="CMake Application.Roblox_beautiful_subarrays">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Roblox_beautiful_subarrays" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algorithms" TARGET_NAME="Roblox_beautiful_subarrays" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algorithms" RUN_TARGET_NAME="Roblox_beautiful_subarrays">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Roblox_consecutive_numbers_sum" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algorithms" TARGET_NAME="Roblox_consecutive_numbers_sum" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algorithms" RUN_TARGET_NAME="Roblox_consecutive_numbers_sum">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="Roblox_maximum_occurring_character" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="algorithms" TARGET_NAME="Roblox_maximum_occurring_character" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="algorithms" RUN_TARGET_NAME="Roblox_maximum_occurring_character">
@@ -103,6 +115,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="CMake Application.Roblox_beautiful_subarrays" />
+      <item itemvalue="CMake Application.Roblox_consecutive_numbers_sum" />
       <item itemvalue="CMake Application.Roblox_maximum_occurring_character" />
       <item itemvalue="CMake Application.Roblox_paint_the_ceiling" />
       <item itemvalue="CMake Application.Roblox_prison_break" />
@@ -143,22 +157,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1061" y="456" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1602814951617" />
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1602842190899">
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom" timestamp="1602896206309">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602842190899" />
-    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1602842190899">
+    <state width="2517" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602896206309" />
+    <state width="2517" height="400" key="GridCell.Tab.0.center" timestamp="1602896206309">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602842190899" />
-    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1602842190899">
+    <state width="2517" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602896206309" />
+    <state width="2517" height="400" key="GridCell.Tab.0.left" timestamp="1602896206309">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602842190899" />
-    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1602842190899">
+    <state width="2517" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602896206309" />
+    <state width="2517" height="400" key="GridCell.Tab.0.right" timestamp="1602896206309">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602842190899" />
+    <state width="2517" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602896206309" />
     <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1602833328016">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

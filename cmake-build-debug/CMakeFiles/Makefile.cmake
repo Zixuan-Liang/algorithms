@@ -58,4 +58,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/Roblox_university_career_fair.dir/DependInfo.cmake"
   "CMakeFiles/Roblox_maximum_occurring_character.dir/DependInfo.cmake"
   "CMakeFiles/Roblox_prison_break.dir/DependInfo.cmake"
+  "CMakeFiles/Roblox_consecutive_numbers_sum.dir/DependInfo.cmake"
+  "CMakeFiles/Roblox_beautiful_subarrays.dir/DependInfo.cmake"
   )

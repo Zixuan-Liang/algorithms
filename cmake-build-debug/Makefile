@@ -75,17 +75,6 @@ CMAKE_BINARY_DIR = C:\Users\zixua\Documents\GitHub\algorithms\cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2020.2.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -96,6 +85,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	"C:\Program Files\JetBrains\CLion 2020.2.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -193,6 +193,59 @@ Roblox_prison_break: cmake_check_build_system
 Roblox_prison_break/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_prison_break.dir\build.make CMakeFiles/Roblox_prison_break.dir/build
 .PHONY : Roblox_prison_break/fast
+
+#=============================================================================
+# Target rules for targets named Roblox_consecutive_numbers_sum
+
+# Build rule for target.
+Roblox_consecutive_numbers_sum: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Roblox_consecutive_numbers_sum
+.PHONY : Roblox_consecutive_numbers_sum
+
+# fast build rule for target.
+Roblox_consecutive_numbers_sum/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_consecutive_numbers_sum.dir\build.make CMakeFiles/Roblox_consecutive_numbers_sum.dir/build
+.PHONY : Roblox_consecutive_numbers_sum/fast
+
+#=============================================================================
+# Target rules for targets named Roblox_beautiful_subarrays
+
+# Build rule for target.
+Roblox_beautiful_subarrays: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Roblox_beautiful_subarrays
+.PHONY : Roblox_beautiful_subarrays
+
+# fast build rule for target.
+Roblox_beautiful_subarrays/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_beautiful_subarrays.dir\build.make CMakeFiles/Roblox_beautiful_subarrays.dir/build
+.PHONY : Roblox_beautiful_subarrays/fast
+
+array/Roblox_beautiful_subarrays.obj: array/Roblox_beautiful_subarrays.cpp.obj
+
+.PHONY : array/Roblox_beautiful_subarrays.obj
+
+# target to build an object file
+array/Roblox_beautiful_subarrays.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_beautiful_subarrays.dir\build.make CMakeFiles/Roblox_beautiful_subarrays.dir/array/Roblox_beautiful_subarrays.cpp.obj
+.PHONY : array/Roblox_beautiful_subarrays.cpp.obj
+
+array/Roblox_beautiful_subarrays.i: array/Roblox_beautiful_subarrays.cpp.i
+
+.PHONY : array/Roblox_beautiful_subarrays.i
+
+# target to preprocess a source file
+array/Roblox_beautiful_subarrays.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_beautiful_subarrays.dir\build.make CMakeFiles/Roblox_beautiful_subarrays.dir/array/Roblox_beautiful_subarrays.cpp.i
+.PHONY : array/Roblox_beautiful_subarrays.cpp.i
+
+array/Roblox_beautiful_subarrays.s: array/Roblox_beautiful_subarrays.cpp.s
+
+.PHONY : array/Roblox_beautiful_subarrays.s
+
+# target to generate assembly for a file
+array/Roblox_beautiful_subarrays.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_beautiful_subarrays.dir\build.make CMakeFiles/Roblox_beautiful_subarrays.dir/array/Roblox_beautiful_subarrays.cpp.s
+.PHONY : array/Roblox_beautiful_subarrays.cpp.s
 
 dp/Roblox_paint_the_ceiling.obj: dp/Roblox_paint_the_ceiling.cpp.obj
 
@@ -302,6 +355,33 @@ hash/Roblox_prison_break.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_prison_break.dir\build.make CMakeFiles/Roblox_prison_break.dir/hash/Roblox_prison_break.cpp.s
 .PHONY : hash/Roblox_prison_break.cpp.s
 
+math/Roblox_consecutive_numbers_sum.obj: math/Roblox_consecutive_numbers_sum.cpp.obj
+
+.PHONY : math/Roblox_consecutive_numbers_sum.obj
+
+# target to build an object file
+math/Roblox_consecutive_numbers_sum.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_consecutive_numbers_sum.dir\build.make CMakeFiles/Roblox_consecutive_numbers_sum.dir/math/Roblox_consecutive_numbers_sum.cpp.obj
+.PHONY : math/Roblox_consecutive_numbers_sum.cpp.obj
+
+math/Roblox_consecutive_numbers_sum.i: math/Roblox_consecutive_numbers_sum.cpp.i
+
+.PHONY : math/Roblox_consecutive_numbers_sum.i
+
+# target to preprocess a source file
+math/Roblox_consecutive_numbers_sum.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_consecutive_numbers_sum.dir\build.make CMakeFiles/Roblox_consecutive_numbers_sum.dir/math/Roblox_consecutive_numbers_sum.cpp.i
+.PHONY : math/Roblox_consecutive_numbers_sum.cpp.i
+
+math/Roblox_consecutive_numbers_sum.s: math/Roblox_consecutive_numbers_sum.cpp.s
+
+.PHONY : math/Roblox_consecutive_numbers_sum.s
+
+# target to generate assembly for a file
+math/Roblox_consecutive_numbers_sum.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Roblox_consecutive_numbers_sum.dir\build.make CMakeFiles/Roblox_consecutive_numbers_sum.dir/math/Roblox_consecutive_numbers_sum.cpp.s
+.PHONY : math/Roblox_consecutive_numbers_sum.cpp.s
+
 stack/Roblox_word_compression.obj: stack/Roblox_word_compression.cpp.obj
 
 .PHONY : stack/Roblox_word_compression.obj
@@ -337,11 +417,16 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Roblox_beautiful_subarrays
+	@echo ... Roblox_consecutive_numbers_sum
 	@echo ... Roblox_maximum_occurring_character
 	@echo ... Roblox_paint_the_ceiling
 	@echo ... Roblox_prison_break
 	@echo ... Roblox_university_career_fair
 	@echo ... Roblox_word_compression
+	@echo ... array/Roblox_beautiful_subarrays.obj
+	@echo ... array/Roblox_beautiful_subarrays.i
+	@echo ... array/Roblox_beautiful_subarrays.s
 	@echo ... dp/Roblox_paint_the_ceiling.obj
 	@echo ... dp/Roblox_paint_the_ceiling.i
 	@echo ... dp/Roblox_paint_the_ceiling.s
@@ -354,6 +439,9 @@ help:
 	@echo ... hash/Roblox_prison_break.obj
 	@echo ... hash/Roblox_prison_break.i
 	@echo ... hash/Roblox_prison_break.s
+	@echo ... math/Roblox_consecutive_numbers_sum.obj
+	@echo ... math/Roblox_consecutive_numbers_sum.i
+	@echo ... math/Roblox_consecutive_numbers_sum.s
 	@echo ... stack/Roblox_word_compression.obj
 	@echo ... stack/Roblox_word_compression.i
 	@echo ... stack/Roblox_word_compression.s
