@@ -19,8 +19,7 @@ from scipy.optimize import linprog
 obj = [3,-2,4]
 lhs_ineq = [[-1,3,-1],[-2,-1,1],[-1,-1,-3],[0,1,-1]]
 rhs_ineq = [-3,-4,-5,-2] # linprog requires constraints in form of <=, so need to reverse rhs_ineq and lhs_ineq
-opt = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq, method="interior-point")
-print(opt)
+opt_1 = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq, method="interior-point")
 
 # Example 2, dual problem of example 1
 # max 3u + 4x + 5y + 2z
@@ -31,5 +30,6 @@ print(opt)
 obj = [-3,-4,-5,-2] # linprog returns the minimum, so need to reverse the obj to make max become min
 lhs_ineq = [[1,2,1,0],[-3,1,1,-1],[1,-1,3,1]]
 rhs_ineq = [3,-2,4]
-opt = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq, method="interior-point")
-print(opt)
+opt_2 = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq, method="interior-point")
+
+print(abs(opt_1.fun - (-opt_2.fun)) < 0.000001)
