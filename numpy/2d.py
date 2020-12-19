@@ -19,9 +19,9 @@ def concatenate(a, b, axis):
 
 def flip(arr, axis):
     if axis == 0:
-        return arr[-1::-1]
+        return arr[::-1]
     if axis == 1:
-        return [row[-1::-1] for row in arr]
+        return [row[::-1] for row in arr]
 
 def roll(arr, shift, axis=None):
     if axis is None:
@@ -43,15 +43,10 @@ def roll(arr, shift, axis=None):
         shift = shift % len(arr[0])
         return [row[-shift:] + row[:-shift] for row in arr]
             
-def rot90(arr):
-    pass
+def rot90_clock(arr):
+    rot = list(map(list, zip(*reversed(arr))))
+    return rot
 
-
-array = np.random.random_sample((2,2))
-print(array.flatten().tolist() == flatten(array))
-array = np.random.random_sample((2,2))
-print(np.transpose(array).tolist() == transpose(array))
-array = np.random.random_sample((2,2))
-print(np.flip(array, 0).tolist() == flip(array.tolist(), 0))
-array = np.random.random_sample((2,2))
-print(np.flip(array, 1).tolist() == flip(array.tolist(), 1))
+def rot90_counter_clock(arr):
+    tran = transpose(arr)
+    return tran[::-1]

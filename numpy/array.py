@@ -38,19 +38,3 @@ class Array():
             assert len(flat) == reduce(mul, shape)
             n = reduce(mul, shape[1:])
             return [self.reshape(shape[1:], flat[i*n:(i+1)*n]) for i in range(len(flat)//n)]
-
-
-while True:
-    shape = []
-    length = random.randint(5,10)
-    for _ in range(length):
-        shape.append(2)
-    shape = tuple(shape)
-    array = np.random.random_sample(shape)
-    my_array = Array(array.tolist())
-    assert array.shape == my_array.shape
-    assert np.array_equal(array.flatten(), np.array(my_array.flatten()))
-    assert np.array_equal(np.reshape(array, (2,2,-1)), np.array(my_array.reshape((2,2,-1))))
-    print("passed")
-
-
