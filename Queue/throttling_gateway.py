@@ -1,4 +1,6 @@
-import collections
+# Here it uses list to implement queue because queue is constant size, so pop(0) takes constant time
+# Otherwise pop(0) would take O(n) time
+
 def droppedRequests(requestTime):
     # Write your code here
 
@@ -35,8 +37,6 @@ def droppedRequests(requestTime):
             Q60.pop(0)
             Q60.append(v)
         count += drop
-        # print(Q1, Q20, Q60)
-
 
     return count
 
