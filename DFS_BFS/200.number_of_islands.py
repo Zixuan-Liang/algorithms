@@ -1,3 +1,5 @@
+from typing import List
+
 # DFS
 class Solution:
     def dfs(self, grid, r, c):
