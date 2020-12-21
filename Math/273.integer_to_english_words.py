@@ -1,92 +1,49 @@
-class Solution:
-    def numberToWords(self, num):
-        """
-        :type num: int
-        :rtype: str
-        """
-        def one(num):
-            switcher = {
-                1: 'One',
-                2: 'Two',
-                3: 'Three',
-                4: 'Four',
-                5: 'Five',
-                6: 'Six',
-                7: 'Seven',
-                8: 'Eight',
-                9: 'Nine'
-            }
-            return switcher.get(num)
-
-        def two_less_20(num):
-            switcher = {
-                10: 'Ten',
-                11: 'Eleven',
-                12: 'Twelve',
-                13: 'Thirteen',
-                14: 'Fourteen',
-                15: 'Fifteen',
-                16: 'Sixteen',
-                17: 'Seventeen',
-                18: 'Eighteen',
-                19: 'Nineteen'
-            }
-            return switcher.get(num)
-        
-        def ten(num):
-            switcher = {
-                2: 'Twenty',
-                3: 'Thirty',
-                4: 'Forty',
-                5: 'Fifty',
-                6: 'Sixty',
-                7: 'Seventy',
-                8: 'Eighty',
-                9: 'Ninety'
-            }
-            return switcher.get(num)
-        
-
-        def two(num):
-            if not num:
-                return ''
-            elif num < 10:
-                return one(num)
-            elif num < 20:
-                return two_less_20(num)
-            else:
-                tenner = num // 10
-                rest = num - tenner * 10
-                return ten(tenner) + ' ' + one(rest) if rest else ten(tenner)
-        
-        def three(num):
-            hundred = num // 100
-            rest = num - hundred * 100
-            if hundred and rest:
-                return one(hundred) + ' Hundred ' + two(rest) 
-            elif not hundred and rest: 
-                return two(rest)
-            elif hundred and not rest:
-                return one(hundred) + ' Hundred'
-        
-        billion = num // 1000000000
-        million = (num - billion * 1000000000) // 1000000
-        thousand = (num - billion * 1000000000 - million * 1000000) // 1000
-        rest = num - billion * 1000000000 - million * 1000000 - thousand * 1000
-        
-        if not num:
-            return 'Zero'
-        
-        result = ''
-        if billion:        
-            result = three(billion) + ' Billion'
-        if million:
-            result += ' ' if result else ''    
-            result += three(million) + ' Million'
-        if thousand:
-            result += ' ' if result else ''
-            result += three(thousand) + ' Thousand'
-        if rest:
-            result += ' ' if result else ''
-            result += three(rest)
+class Solution():
+    def one_digit(self, num):
+        numbers = [i for i in range(1, 10)]
+        words = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
+        table = dict(zip(numbers, words))
+        return table[num]
+    def teen(self, num):
+        numbers = [i for i in range(10, 20)]
+        words = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+        table = dict(zip(numbers, words))
+        return table[num]
+    def tens(self, num):
+        numbers = [i for i in range(2, 10)]
+        words = ["Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+        table = dict(zip(numbers, words))
+        return table[num]
+    def three_digits(self, num):
+        result = ""
+        hundred = num//100
+        if hundred:
+            result += self.one_digit(hundred) + " Hundred"
+        ten = num%100//10
+        if ten == 1:
+            result += (" " if result else "") + self.teen(num%100)
+        else:
+            if ten >= 2:
+                result += (" " if result else "") + self.tens(ten)
+            single = num%10
+            if single:
+                result += (" " if result else "") + self.one_digit(single)
         return result
+    def numberToWords(self, num: int) -> str:
+        ans = ""
+        billion = num//1000000000
+        if billion:
+            ans += self.one_digit(billion) + " Billion"
+        million = num%1000000000//1000000
+        if million:
+            ans += (" " if ans else "") + self.three_digits(million) + " Million"
+        thousand = num%1000000//1000
+        if thousand:
+            ans += (" " if ans else "") + self.three_digits(thousand) + " Thousand"
+        res = num%1000
+        if res:
+            ans += (" " if ans else "") + self.three_digits(res)
+        if not ans:
+            return "Zero"
+        else:
+            return ans
