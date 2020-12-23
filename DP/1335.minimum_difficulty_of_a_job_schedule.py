@@ -1,17 +1,17 @@
-import functools
 class Solution:
 
     def minDifficulty(self, A, d):
         n = len(A)
-        if n < d: return -1
-
-        @functools.lru_cache(None)
-        def dfs(i, d):
-            if d == 1:
-                return max(A[i:])
-            res, maxd = float('inf'), 0
-            for j in range(i, n - d + 1):
-                maxd = max(maxd, A[j])
-                res = min(res, maxd + dfs(j + 1, d - 1))
-            return res
-        return dfs(0, d)
+        if d > n:
+            return -1
+        inf = float('inf')
+        dp = [[inf for _ in range(d+1)] for _ in range(n+1)]
+        dp[0][0] = 0
+        for i in range(1, n+1):
+            for k in range(1, d+1):
+                max_d = 0
+                for j in range(i-1, k-2, -1):
+                    max_d = max(max_d, A[j])
+                    dp[i][k] = min(dp[i][k], dp[j][k-1]+max_d)
+                    
+        return dp[n][d]
