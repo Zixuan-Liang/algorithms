@@ -51,6 +51,7 @@
 #             return ans if ans <= N+1 else 0
 
 from collections import deque as Queue, defaultdict
+from typing import List
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
