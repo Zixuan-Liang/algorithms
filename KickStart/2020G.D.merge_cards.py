@@ -1,20 +1,25 @@
-maxn = 5000
-p = [[0 for j in range(i)] for i in range(maxn + 1)]
-p[1][0] = 0
+maxn = 5001
+dp = [[0 for _ in range(maxn - i)] for i in range(maxn)]
 
-for i in range(2, maxn + 1):
-    for j in range(1, i):
-        p[i][j] += p[i - 1][j - 1] * j / (i - 1)
-    for j in range(i - 1):
-        p[i][j] += p[i - 1][j] * (i - 1 - j) / (i - 1)
-    for j in range(i):
-        p[i][j] += 1 / (i - 1)
-    for j in range(1, i - 1):
-        p[i][j] += 1 / (i - 1)
-
+for i in range(maxn):
+    for j in range(maxn - i):
+        if i or j:
+            tot = 0
+            prob = 1.0 / (i+j)
+            if i > 0:
+                tot += prob * (1 + dp[i-1][j])
+            if j > 0:
+                tot += prob * (1 + dp[i][j-1])
+            if i > 1:
+                tot += (i-1)/(i+j) * dp[i-1][j]
+            if j > 1:
+                tot += (j-1)/(i+j) * dp[i][j-1]
+            dp[i][j] = tot
 T = int(input())
 for cas in range(T):
     n = int(input())
-    num = map(int, input().split(' '))
-    ans = sum(num * prob for num, prob in zip(num, p[n]))
+    num = list(map(int, input().split()))
+    ans = 0
+    for i in range(n):
+        ans += dp[i][n-1-i] * num[i]
     print ("Case #{}: {:.10f}".format(cas + 1, ans))
