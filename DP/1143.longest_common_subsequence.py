@@ -21,9 +21,6 @@ class Solution:
 # Space optimization
 class Solution2:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        # If text1 doesn't reference the shortest string, swap them.
-        if len(text2) < len(text1):
-            text1, text2 = text2, text1
         # The previous and current column starts with all 0's and like 
         # before is 1 more than the length of the first word.
         previous = [0] * (len(text1) + 1)
