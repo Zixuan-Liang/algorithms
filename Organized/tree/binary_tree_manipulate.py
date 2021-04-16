@@ -156,3 +156,21 @@ class Codec:
             i += 2
         return root
 
+# 堆(heap)是二叉树的一种，最小堆：根节点是树最小值，左右子树也是最小堆
+# 堆又叫优先队列，最小堆就是最小优先队列，无论入堆顺序如何，出堆总是最小的出堆
+# Python自带最小堆库：import heapq （如果要用最大堆，入堆前用-val即可）
+
+# 以数组形式表示堆：leftIndex = parentIndex * 2 + 1, rightIndex = parentIndex * 2 + 2
+
+# 从空数组开始构造最小堆：
+# heap = []
+# heapq.heappush(heap, 3)   # 入堆操作
+# val = heap[0]     # 读取堆顶数值
+# val = heapq.heappop(heap)     # 出堆操作
+
+# 入堆/出堆后，都要维护堆的性质，复杂度为O(lgn)（复杂度为树的高度）
+
+# 从一个已有数组构造最小堆
+# x = [1,6,7,4,2,9]
+# heapq.heapify(x)      # 将数组按照最小堆的性质重新排序，heapify的复杂度为O(n)
+# small = heapq.nsmallest(3, x)   # 读取堆的最小n个元素（并不修改，只是读取）
