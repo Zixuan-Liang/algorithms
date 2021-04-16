@@ -1,4 +1,4 @@
-# 前序遍历 根左右
+# 前序遍历 根左右 迭代法 iterative
 def preorderTraversal(root):
     res, stack = [], []
     while root or stack:
@@ -10,7 +10,15 @@ def preorderTraversal(root):
         root = root.right
     return res
 
-# 后续遍历 左右根 （相当于根右左结果翻转，转化为前序遍历）
+# 前序遍历 根左右 递归法 recursive
+def preoderTraversal(root):
+    res = []
+    if not root:
+        return res
+    res = [root.val] + preoderTraversal(root.left) + preoderTraversal(root.right)
+    return res
+
+# 后序遍历 左右根 迭代法（相当于根右左结果翻转，转化为左右互换顺序的前序遍历）
 def postorderTraversal(root):
     res, stack = [], []
     while root or stack:
@@ -22,7 +30,15 @@ def postorderTraversal(root):
         root = root.left
     return res[::-1]
 
-# 中序遍历 左根右 
+# 后序遍历 左右根 递归法
+def postorderTraversal(root):
+    res = []
+    if not root:
+        return res
+    res = postorderTraversal(root.left) + [root.val] + postorderTraversal(root.right)
+    return res
+
+# 中序遍历 左根右 迭代法
 def inorderTraversal(root):
     res, stack = [], []
     while root or stack:
@@ -33,3 +49,13 @@ def inorderTraversal(root):
         res.append(root.val)
         root = root.right
     return res
+
+# 中序遍历 左根右 递归法
+def inorderTraversal(root):
+    res = []
+    if not root:
+        return res
+    res = inorderTraversal(root.left) + [root.val] + inorderTraversal(root.right)
+    return res
+
+# 
