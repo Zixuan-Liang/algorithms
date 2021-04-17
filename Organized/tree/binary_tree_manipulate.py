@@ -1,5 +1,8 @@
 # 对二叉树进行修改操作
 
+# 对于二叉树的问题，搞清楚根节点应该做什么，
+# 然后剩下的事情交给前/中/后序遍历框架就行了，千万不要跳进递归的细节里
+
 from collections import deque as Queue
 
 class TreeNode:
@@ -103,16 +106,20 @@ def connect(root):
     return root
 
 # 或者用递归方式 DFS
-def dfs(curr, next):
-    if not curr:
-        return
-    curr.next = next
-    dfs(curr.left, curr.right)
-    dfs(curr.right, curr.next.left if curr.next else None)
+class SolutionConnect:
+    def helper(self, node1, node2):
+        if not node1 or not node2:
+            return
+        node1.next = node2
+        self.helper(node1.left, node1.right)
+        self.helper(node2.left, node2.right)
+        self.helper(node1.right, node2.left)
 
-def connectRecursive(root):
-    dfs(root, None)
-    return root
+    def connect(self, root):
+        if not root:
+            return root
+        self.helper(root.left, root.right)
+        return root
 
 # 二叉树序列化、反序列化
 # 序列化：输入二叉树用一个字符串来编码；反序列化：把输入字符串解码为一个二叉树
@@ -156,6 +163,38 @@ class Codec:
             i += 2
         return root
 
+# 用递归实现序列化/反序列化
+class CodecRecursive:
+    def serializeHelper(self, root):
+        if not root:
+            self.string += '#,'
+            return
+        self.string += str(root.val) + ','
+        self.serializeHelper(root.left)
+        self.serializeHelper(root.right)
+
+    def serialize(self, root):
+        self.string = ''
+        self.serializeHelper(root)
+        return self.string
+
+    def deserializeHelper(self):
+        if not self.nodes:
+            return None
+        first = self.nodes.popleft()
+        if first == '#':
+            return None
+        root = TreeNode(int(first))
+        root.left = self.deserializeHelper()
+        root.right = self.deserializeHelper()
+        return root
+
+    def deserialize(self, data):
+        self.nodes = Queue()
+        for s in data.split(','):
+            self.nodes.append(s)
+        return self.deserializeHelper()
+
 # 堆(heap)是二叉树的一种，最小堆：根节点是树最小值，左右子树也是最小堆
 # 堆又叫优先队列，最小堆就是最小优先队列，无论入堆顺序如何，出堆总是最小的出堆
 # Python自带最小堆库：import heapq （如果要用最大堆，入堆前用-val即可）
@@ -174,3 +213,67 @@ class Codec:
 # x = [1,6,7,4,2,9]
 # heapq.heapify(x)      # 将数组按照最小堆的性质重新排序，heapify的复杂度为O(n)
 # small = heapq.nsmallest(3, x)   # 读取堆的最小n个元素（并不修改，只是读取）
+
+# 翻转二叉树
+def invertTree(root):
+    if not root:
+        return root
+    root.left, root.right = root.right, root.left
+    invertTree(root.left)
+    invertTree(root.right)
+    return root
+
+# 二叉树展开为链表
+# 步骤一：明确递归函数的定义，将以root为根的树拉平为链表
+# 步骤二：后序遍历，将左子树拉平，右子树拉平，最后拼接到根
+def flatten(root):
+    if not root:
+        return
+    flatten(root.left)
+    flatten(root.right)
+    oldRight = root.right
+    root.right = root.left
+    root.left = None
+    node = root
+    while node.right:
+        node = node.right
+    node.right = oldRight
+
+# 用一个不含重复元素的数组构造最大二叉树（最大堆）
+class SolutionConstructMaximumBinaryTree:
+    def getMaxIdx(self, low, high):
+        maxIdx = low
+        for i in range(low, high+1):
+            if self.nums[i] > self.nums[maxIdx]:
+                maxIdx = i
+        return maxIdx
+
+    def helper(self, low, high):
+        if low > high:
+            return None
+        maxIdx = self.getMaxIdx(low, high)
+        root = TreeNode(self.nums[maxIdx])
+        root.left = self.helper(low, maxIdx-1)
+        root.right = self.helper(maxIdx+1, high)
+        return root
+
+    def constructMaximumBinaryTree(self, nums):
+        self.nums = nums
+        return self.helper(0, len(nums)-1)
+
+# 二叉搜索树转化为累加树
+# 确定遍历顺序：右根左（伪中序遍历，因为要从大到小遍历）
+# 确定每个节点要做的事情：把自己的值加到一个累加的值，然后更新自己的值
+class SolutionConvertBST:
+    def helper(self, root):
+        if not root:
+            return
+        self.helper(root.right) # 遍历右
+        self.sums += root.val   # 根: 做每个节点要做的事情
+        root.val = self.sums
+        self.helper(root.left)  # 遍历左
+
+    def convertBST(self, root):
+        self.sums = 0
+        self.helper(root)
+        return root

@@ -193,5 +193,7 @@ class SolutionCloneGraph:
         return visited[node]
 
 # 柱状图中最大的矩形
+# 利用单调栈解决，单调栈的定义：每次新元素入栈后，栈内的元素都保持有序（单调递增或递减）
+# 单调栈解决下一个更大元素的问题：next greater element
 def largestRectangleArea(heights):
     pass

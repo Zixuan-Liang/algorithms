@@ -75,3 +75,46 @@ def isValidBSTHelper(root):
     
 def isValidBST(root):
     return isValidBSTHelper(root)[0]
+
+# 寻找重复的子树
+class SolutionFindDuplicateSubtrees:
+    def helper(self, root):
+        if not root:
+            return '#'
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        subTree = left + ',' + right + ',' + str(root.val)
+        if subTree not in self.memo:
+            self.memo[subTree] = 0
+        if self.memo[subTree] == 1:
+            self.res.append(root)
+        self.memo[subTree] += 1
+        return subTree
+
+    def findDuplicateSubtrees(self, root):
+        self.memo = {}
+        self.res = []
+        self.helper(root)
+        return self.res
+
+# 二叉搜索树的问题，要么利用左小右大的特性提升算法效率，
+# 要么利用中序遍历的特性满足题目的要求
+
+# 二叉搜索树中第k小的元素
+# 中序遍历时，遍历到第k个数就是第k小的元素
+class SolutionKthSmallest:
+    def helper(self, root, k):
+        if not root:
+            return
+        self.helper(root.left, k)
+        self.rank += 1
+        if k == self.rank:
+            self.res = root.val
+            return
+        self.helper(root.right, k)
+
+    def kthSmallest(self, root, k):
+        self.res = 0
+        self.rank = 0
+        self.helper(root, k)
+        return self.res
