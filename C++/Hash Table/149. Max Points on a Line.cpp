@@ -14,7 +14,7 @@ public:
                 }
             }
             ans = max(ans, dup);
-            for (auto p : counter) {
+            for (auto& p : counter) {
                 ans = max(ans, p.second+dup);
             }
         }
