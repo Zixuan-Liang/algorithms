@@ -17,10 +17,10 @@ def preorderTraversal(root):
     while root or stack:
         while root:
             res.append(root.val)
-            stack.append(root.left)
+            stack.append(root)
             root = root.left
-        root = stack.pop()
-        root = root.right
+        root = root[-1].right
+        stack.pop()
     return res
 
 # 前序遍历 根左右 递归法 recursive
