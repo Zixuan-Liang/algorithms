@@ -1,12 +1,12 @@
 class SnapshotArray {
 private:
-    map<int, map<int, int>> snaps;
+    vector<map<int, int>> snaps;
     int snapId = 0;
 public:
     SnapshotArray(int length) {
         for (int i = 0; i < length; i++) {
             map<int, int> mp; mp[0] = 0;
-            snaps[i] = mp;
+            snaps.push_back(mp);
         }
     }
     
