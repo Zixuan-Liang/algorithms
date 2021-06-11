@@ -65,6 +65,8 @@ public:
         vector<vector<int>> A = grid;
         for (auto& h : hits) A[h[0]][h[1]] = 0;
         DSU dsu(m, n);
+        // 复杂度O(N alpha(N)) (N为矩阵元素数量)
+        // alpha(N)为增长很慢的函数，可认为alpha(N)<=4
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < n; c++) {
                 if (A[r][c]) {
@@ -77,6 +79,7 @@ public:
         }
         vector<int> res;
         reverse(hits.begin(), hits.end());
+        // 复杂度O(Q alpha(N)) (Q为hits的长度)
         for (auto& h : hits) {
             int r = h[0], c = h[1];
             int preRoof = dsu.Top();
