@@ -22,20 +22,15 @@ public:
         }
 
         std::string result;
-        bool status = 0;   // 0 means we are outside of the mask region, 1 means we are inside.
+        int status = 0;   // 0 means we are outside of the mask region, 1 means we are inside.
         for (int i = 0; i < mask.size(); ++i) {
 
-            if (status == 0) {
-                if (mask[i]) {
-                    result += "<b>";
-                    status = 1;
-                }
-
-            } else if (status == 1) {
-                if (!mask[i]) {
-                    result += "</b>";
-                    status = 0;
-                }
+            if (!status && mask[i]) {
+                result += "<b>";
+                status = 1;
+            } else if (status && !mask[i]) {
+                result += "</b>";
+                status = 0;
             }
 
             result += S[i];
