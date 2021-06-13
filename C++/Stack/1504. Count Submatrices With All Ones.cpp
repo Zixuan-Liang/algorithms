@@ -3,7 +3,7 @@ public:
     int numSubmat(vector<vector<int>>& mat) {
         int n = mat.size();
         int m = mat[0].size();
-        vector<vector<int> > row(n, vector<int>(m, 0));
+        vector<vector<int>> row(n, vector<int>(m, 0));
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 if (j == 0) {
@@ -19,7 +19,7 @@ public:
         int ans = 0;
         for (int j = 0; j < m; ++j) { 
             int i = 0; 
-            stack<pair<int, int> > Q; 
+            stack<pair<int, int>> Q; 
             int sum = 0; 
             while (i <= n - 1) { 
                 int height = 1; 
