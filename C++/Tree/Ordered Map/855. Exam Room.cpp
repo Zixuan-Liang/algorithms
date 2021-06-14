@@ -29,7 +29,7 @@ int IntV :: N = 0;
 class ExamRoom {
 public:
     set<IntV> tab;
-    map<int, int> l2r, r2l;
+    unordered_map<int, int> l2r, r2l;
     
     ExamRoom(int N)
     {
