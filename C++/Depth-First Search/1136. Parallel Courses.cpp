@@ -6,12 +6,11 @@ public:
             graph[relation[0]].push_back(relation[1]);
         }
         // check if the graph contains a cycle
-        vector<int> visited(N + 1, 0);
+        vector<string> color(N + 1, "WHITE");
+        bool hasCycle = false;
         for (int node = 1; node < N + 1; node++) {
-            // if has cycle, return -1
-            if (dfsCheckCycle(node, graph, visited) == -1) {
-                return -1;
-            }
+            if (color[node] == "WHITE") checkCycle(node, graph, color, hasCycle);
+            if (hasCycle) return -1;
         }
 
         // if no cycle, return the longest path
@@ -25,25 +24,19 @@ public:
     }
 
 private:
-    int dfsCheckCycle(int node, vector<vector<int>>& graph,
-                      vector<int>& visited) {
-        // return -1 if has a cycle
-        // return 1 if does not have any cycle
-        if (visited[node] != 0) {
-            return visited[node];
-        } else {
-            // mark as visiting
-            visited[node] = -1;
-        }
+    
+    void checkCycle(int node, vector<vector<int>>& graph, vector<string>& color, bool& hasCycle) {
+        if (hasCycle) return ;
+        color[node] = "GRAY";
         for (auto& endNode : graph[node]) {
-            if (dfsCheckCycle(endNode, graph, visited) == -1) {
-                // we meet a cycle!
-                return -1;
+            if (color[endNode] == "WHITE") {
+                checkCycle(endNode, graph, color, hasCycle);
+            }
+            else if (color[endNode] == "GRAY") {
+                hasCycle = true;
             }
         }
-        // mark as visited
-        visited[node] = 1;
-        return 1;
+        color[node] = "BLACK";
     }
 
     int dfsMaxPath(int node, vector<vector<int>>& graph,
