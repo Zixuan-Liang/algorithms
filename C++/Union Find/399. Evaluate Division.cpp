@@ -25,7 +25,7 @@ public:
         }
 
         for (auto query : queries) {
-            if (map.count(query[0]) == 0 || map.count(query[1]) == 0 || findParent(map[query[0]]) != findParent(map[query[1]]))
+            if (!map.count(query[0]) || !map.count(query[1]) || findParent(map[query[0]]) != findParent(map[query[1]]))
                 res.push_back(-1);
             else
                 res.push_back(map[query[0]] -> value / map[query[1]] -> value);
