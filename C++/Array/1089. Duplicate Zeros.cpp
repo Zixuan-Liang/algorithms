@@ -1,3 +1,8 @@
+// First, go left to right and count how many shifts (sh) we can fit in our array.
+// Then, go right to left and move items; if it's zero - duplicate it and decrement the shift.
+
+// Note: i + sh can exceed the array size. We need a check for this case.
+
 class Solution {
 public:
 
