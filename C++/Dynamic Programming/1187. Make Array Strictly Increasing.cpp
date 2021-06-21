@@ -1,28 +1,51 @@
+struct PairHash{
+    std::size_t operator()(const pair<int, int>& p) const {
+        auto h1 = std::hash<int>{}(p.first);
+        auto h2 = std::hash<int>{}(p.second);
+        return h1^h2;
+    }
+};
+
 class Solution {
     
-    short dp[2001][2001] = {}, m_val = 2001;
-
+    unordered_map<pair<int, int>, int, PairHash> memo;
     
 public:
 
-    short dfs(vector<int>& a1, vector<int>& a2, int i1, int i2, int prev) {
-        if (i1 >= a1.size()) 
-          return 0;
-        i2 = upper_bound(begin(a2) + i2, end(a2), prev) - begin(a2);
-        if (prev >= a1[i1] && i2 >= a2.size())
-          return m_val;
-        if (dp[i1][i2] == 0) {
-        dp[i1][i2] = i2 < a2.size() ? 1 + dfs(a1, a2, i1 + 1, i2, a2[i2]) : m_val;
-        if (prev < a1[i1])
-            dp[i1][i2] = min(dp[i1][i2], dfs(a1, a2, i1 + 1, i2, a1[i1]));
+    int attempt(vector<int>& arr1, vector<int>& arr2, int index, int beatThis) {
+        pair<int, int> key = {index, beatThis};
+        if (memo.count(key)) return memo[key];
+        if (index == arr1.size()) {
+            memo[key] = 0;
+            return 0;
         }
-        return dp[i1][i2];
+        // Don't replace arr1[index]
+        int res1;
+        if (beatThis < arr1[index]) {
+            res1 = attempt(arr1, arr2, index+1, arr1[index]);
+        }
+        else {
+            res1 = 1e9;
+        }
+        auto upper = upper_bound(arr2.begin(), arr2.end(), beatThis);
+        // Replace arr1[index]
+        int res2;
+        if (upper == arr2.end()) {
+            res2 = 1e9;
+        }
+        else {
+            int tmp = *upper;
+            res2 = attempt(arr1, arr2, index+1, tmp);
+        }
+        int res = min(res1, res2+1);
+        memo[key] = res;
+        return res;
     }
     
-    int makeArrayIncreasing(vector<int>& a1, vector<int>& a2) {
-        sort(begin(a2), end(a2));
-        auto res = dfs(a1, a2, 0, 0, INT_MIN);
-        return res >= m_val ? -1 : res;
+    int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
+        sort(arr2.begin(), arr2.end());
+        int res = attempt(arr1, arr2, 0, INT_MIN);
+        return (res == 1e9) ? -1 : res;
     }
     
 };
