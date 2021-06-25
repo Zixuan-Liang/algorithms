@@ -19,6 +19,7 @@ public:
     int q(int t)
     {
         return (--m.upper_bound(t))->second;
+        // return (*--m.upper_bound(t)).second;
     }
 };
 
