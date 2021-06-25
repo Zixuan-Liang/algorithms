@@ -2,14 +2,12 @@ class Solution {
     
     int sum;
     vector<int> prefixSum;
-    vector<int> weights;
     
 public:
     Solution(vector<int>& w) {
-        weights = w;
-        prefixSum.push_back(weights[0]);
-        for (int i = 1; i < weights.size(); i++) {
-            prefixSum.push_back(prefixSum.back() + weights[i]);
+        prefixSum.push_back(w[0]);
+        for (int i = 1; i < w.size(); i++) {
+            prefixSum.push_back(prefixSum.back() + w[i]);
         }
         sum = prefixSum.back();
     }
