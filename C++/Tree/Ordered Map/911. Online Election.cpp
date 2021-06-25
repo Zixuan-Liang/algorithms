@@ -18,7 +18,7 @@ public:
 
     int q(int t)
     {
-        return m[*--upper_bound(times.begin(), times.end(), t)];
+        return (--m.upper_bound(t))->second;
     }
 };
 
