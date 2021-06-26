@@ -31,23 +31,22 @@ public:
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        if (nums.size() == 0) return vector<int>{-1, -1};
-        auto lower = lower_bound(nums.begin(), nums.end(), target);
-        int first;
-        if (lower != nums.end() && *lower == target) {
-            first = lower - nums.begin();
+        int start;
+        auto lb = lower_bound(nums.begin(), nums.end(), target);
+        if (lb != nums.end() && *lb == target) {
+            start = lb - nums.begin();
         }
         else {
-            first = -1;
+            start = -1;
         }
-        auto upper = upper_bound(nums.begin(), nums.end(), target);
-        int last;
-        if (upper != nums.begin() && *(upper-1) == target) {
-            last = upper - 1 - nums.begin();
+        int end;
+        auto ub = upper_bound(nums.begin(), nums.end(), target);
+        if (ub != nums.begin() && *(ub-1) == target) {
+            end = ub - 1 - nums.begin();
         }
         else {
-            last = -1;
+            end = -1;
         }
-        return vector<int>{first, last};
+        return {start, end};
     }
 };
