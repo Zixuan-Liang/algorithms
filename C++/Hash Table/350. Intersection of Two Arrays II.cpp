@@ -13,7 +13,7 @@ public:
             //     nums1[k++] = n;
             // }
             auto it = count1.find(n);
-            if (it != end(count1) && --it->second >= 0) {
+            if (it != end(count1) && --(it->second) >= 0) {
                 nums1[k++] = n;
             }
         }
