@@ -1,22 +1,29 @@
 class Solution {
 public:
+    
+    double timeToFinish(vector<int>& dist, int speed) {
+        double time = 0;
+        for (int i = 0; i < dist.size() - 1; i++) {
+            time += (dist[i] - 1) / speed + 1;
+        }
+        time += 1.0 * dist.back() / speed;
+        return time;
+    }
+    
     int minSpeedOnTime(vector<int>& dist, double hour) {
-        if (hour - (dist.size() - 1) <= 0) return -1;
-        int left = 1, right = pow(10, 9);
-        while (left < right) {
-            int pivot = (left + right) / 2;
-            double time = 0;
-            for (int i = 0; i < dist.size() - 1; i++) {
-                time += (dist[i] - 1) / pivot + 1;
-            }
-            time += 1.0 * dist.back() / pivot;
+        int n = dist.size();
+        if (hour - (n - 1) <= 0) return -1;
+        int low = 1, high = max(100000, (int)ceil(dist.back()/(hour - (n-1))));
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            double time = timeToFinish(dist, mid);
             if (time > hour) {
-                left = pivot + 1;
+                low = mid + 1;
             }
             else {
-                right = pivot;
+                high = mid;
             }
         }
-        return right;
+        return low;
     }
 };
