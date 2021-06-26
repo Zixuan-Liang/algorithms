@@ -8,7 +8,7 @@ public:
     {
         int n = persons.size(), lead = -1;
         this->times = times;
-        map<int, int> count;
+        unordered_map<int, int> count;
         for (int i = 0; i < n; ++i)
         {
             lead = ++count[persons[i]] >= count[lead] ? persons[i] : lead;
