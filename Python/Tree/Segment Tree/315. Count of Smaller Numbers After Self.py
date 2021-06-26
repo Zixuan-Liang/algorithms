@@ -22,7 +22,7 @@ class Solution:
             right = right // 2
         return ans
     
-    def countSmaller(self, nums: List[int]) -> List[int]:
+    def countSmaller(self, nums):
         offset = 10000
         size = 20001
         tree = [0] * (size * 2)
