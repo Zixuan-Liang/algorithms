@@ -1,19 +1,46 @@
 class MyCalendarThree {
     
-    map<int, int> count = {{-1, 0}};
-    int res = 0;
+    map<int, int> events;
     
 public:
     MyCalendarThree() {
         
     }
     
-    int book(int s, int e) {
-        auto start = count.emplace(s, (--count.upper_bound(s))->second);
-        auto end = count.emplace(e, (--count.upper_bound(e))->second);
-        for (auto i = start.first; i != end.first; ++i)
-            res = max(res, ++(i->second));
-        return res;
+    // bool exists(int n){
+    //     int count = 0;
+    //     for (auto entry: events){
+    //         count+=entry.second;
+    //         if(count>=n) return true;
+    //     }
+    //     return false;
+    // }
+    
+    int maxExists() {
+        int ans = 0;
+        int count = 0;
+        for (auto entry : events) {
+            count += entry.second;
+            ans = max(ans, count);
+        }
+        return ans;
+    }
+    
+    int book(int start, int end) {
+        events[start]++;
+        events[end]--;
+        // int low = 1, high = events.size() + 1;
+        // while (low < high) {
+        //     int mid = low + (high - low) / 2;
+        //     if (exists(mid)) {
+        //         low = mid + 1;
+        //     }
+        //     else {
+        //         high = mid;
+        //     }
+        // }
+        // return low - 1;
+        return maxExists();
     }
 };
 
