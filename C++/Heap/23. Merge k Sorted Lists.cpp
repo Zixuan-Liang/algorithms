@@ -9,46 +9,28 @@
  * };
  */
 #include <queue>
-#include <utility>
-
-struct ComparePair {
-    bool operator()(const pair<int, int>& a, const pair<int, int>& b) const {
-        return a.first > b.first;
-    }
-};
 
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        int k = lists.size();
-        if (k == 0) return nullptr;
-        priority_queue<pair<int, int>, vector<pair<int, int>>, ComparePair> heap;
-        
-        for (int i = 0; i < k; i++) {
-            if (lists[i] == nullptr) {
-                heap.push({INT_MAX, i});
-            }
-            else {
-                heap.push({lists[i]->val, i});
+        ListNode* head = new ListNode();
+        ListNode* curr = head;
+        priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> pq;
+        for (auto list : lists) {
+            if (list) {
+                pq.push({list->val, list});
             }
         }
-        
-        ListNode* dummy = new ListNode();
-        ListNode* current = dummy;
-        while (heap.top().first != INT_MAX) {
-            ListNode* newNode = new ListNode(heap.top().first);
-            current->next = newNode;
-            current = newNode;
-            int i = heap.top().second;
-            heap.pop();
-            lists[i] = lists[i]->next;
-            if (lists[i] == nullptr) {
-                heap.push({INT_MAX, i});
-            }
-            else {
-                heap.push({lists[i]->val, i});
+        while (!pq.empty()) {
+            auto [val, node] = pq.top();
+            pq.pop();
+            curr->next = new ListNode(val);
+            curr = curr->next;
+            node = node->next;
+            if (node) {
+                pq.push({node->val, node});
             }
         }
-        return dummy->next;
+        return head->next;
     }
 };
