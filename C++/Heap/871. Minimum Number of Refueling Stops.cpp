@@ -2,7 +2,7 @@ class Solution {
 public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
         priority_queue<int> pq;
-        stations.push_back({target, INT_MAX});
+        stations.push_back({target, 0});
         int res = 0, prev = 0;
         for (auto& station : stations) {
             int location = station[0], capacity = station[1];
