@@ -1,3 +1,10 @@
+// Statement: If M operations, either Union or Find, are applied to N elements, 
+// the total run time is O(Mlog*N), where log* is the iterated logarithm, 
+// can be seen as constant.
+// Let N be the number of input equations and M be the number of queries.
+// Time Complexity: O((M+N)log*N)
+// Space Complexity: O(N)
+
 class Solution {
 public:
     

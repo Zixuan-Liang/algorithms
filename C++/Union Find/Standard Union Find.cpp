@@ -1,3 +1,9 @@
+// Statement: If M operations, either Union or Find, are applied to N elements, 
+// the total run time is O(Mlog*N), where log* is the iterated logarithm, 
+// can be seen as constant.
+
+// Iterated logarithm is achieved when we use union by rank and path compression heuristics
+
 #include <vector>
 
 class DSU {
