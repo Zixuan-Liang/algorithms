@@ -30,10 +30,11 @@ public:
             if (rank[xSet] < rank[ySet]) {
                 parent[xSet] = ySet;
             }
-            else {
+            else if (rank[ySet] < rank[xSet]){
                 parent[ySet] = xSet;
             }
-            if (rank[xSet] == rank[ySet]) {
+            else {
+                parent[ySet] = xSet;
                 rank[xSet]++;
             }
             size--;
