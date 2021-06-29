@@ -1,0 +1,47 @@
+#include <vector>
+
+class DSU {
+public:
+
+    vector<int> parent, rank;
+    int size;
+
+    DSU(int n) {
+        size = n;
+        rank.resize(n, 0);
+        parent.resize(n);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    int find(int x) {
+        if (parent[x] == x) {
+            return x;
+        }
+        else {
+            return find(parent[x]);
+        }
+    }
+
+    bool uni(int x, int y) {
+        int xSet = find(x), ySet = find(y);
+        if (xSet != ySet) {
+            if (rank[xSet] < rank[ySet]) {
+                parent[xSet] = ySet;
+            }
+            else {
+                parent[ySet] = xSet;
+            }
+            if (rank[xSet] == rank[ySet]) {
+                rank[xSet]++;
+            }
+            size--;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+};
