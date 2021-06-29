@@ -16,12 +16,10 @@ public:
     }
 
     int find(int x) {
-        if (parent[x] == x) {
-            return x;
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
         }
-        else {
-            return find(parent[x]);
-        }
+        return parent[x];
     }
 
     bool uni(int x, int y) {

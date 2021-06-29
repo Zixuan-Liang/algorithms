@@ -27,9 +27,8 @@ public:
     string find(string x) {
         string p = parents[x];
         if (x != p) {
-            string pp = find(p);
+            parents[x] = find(p);
             vals[x] = vals[x] * vals[p];
-            parents[x] = pp;
         }
         return parents[x];
     }
