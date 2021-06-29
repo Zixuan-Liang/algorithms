@@ -10,12 +10,15 @@
  * };
  */
 class Solution {
+    
+    unordered_map<int, vector<TreeNode*>> memo;
+    
 public:
     
     vector<TreeNode*> allPossibleFBT(int n) {
+        if (memo.count(n)) return memo[n];
         vector<TreeNode*> res;
         if (n % 2 == 0) {
-            return res;
         }
         else if (n == 1) {
             TreeNode* node = new TreeNode(0);
@@ -35,6 +38,7 @@ public:
                 }
             }
         }
+        memo[n] = res;
         return res;
     }
 };
