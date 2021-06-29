@@ -1,7 +1,5 @@
-// The basic idea is that the inorder traversal of the BST is in ascending order. 
-// For example, the inorder traversal of the BST [2, 1, 3] is [1, 2, 3]. 
-// Then we can easily find the most frequently occurred elements by 
-// comparing the successive elements.
+// 中序遍历二叉搜索树，得到的是一个排好序的数组
+// 所以中序遍历二叉树，比较相邻的节点，适时更新计数即可
 
 class Solution {
 public:
