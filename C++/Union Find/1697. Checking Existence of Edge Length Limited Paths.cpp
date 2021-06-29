@@ -38,7 +38,7 @@ public:
         vector<bool> result(queries.size());
         for (vector<int> &q:queries) 
         {
-			// Two pointer approach. Join the edges till their weight is less than the current query.
+			// Two pointer approach. Join the edges if their weight is less than the current query.
             while (i<edgeList.size()&&edgeList[i][2]<q[2]) 
                 dsu.Union(edgeList[i][0],edgeList[i++][1]);
 			
