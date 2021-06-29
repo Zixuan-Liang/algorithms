@@ -1,25 +1,44 @@
 class Solution {
-    
-    unordered_map<int, int> f;
-    int islands = 0;
-    
 public:
-
+    
+    unordered_map<int, int> parents;
+    unordered_map<int, int> rank;
+    int size = 0;
+    
     int find(int x) {
-        if (!f.count(x)) f[x] = x, islands++;
-        if (x != f[x]) f[x] = find(f[x]);
-        return f[x];
+        if (!parents.count(x)) {
+            parents[x] = x;
+            rank[x] = 0;
+            size++;
+        }
+        else if (x != parents[x]) {
+            parents[x] = find(parents[x]);
+        }
+        return parents[x];
     }
-
+    
     void uni(int x, int y) {
-        x = find(x), y = find(y);
-        if (x != y) f[x] = y, islands--;
+        int xset = find(x), yset = find(y);
+        if (xset != yset) {
+            if (rank[xset] < rank[yset]) {
+                parents[xset] = yset;
+            }
+            else if (rank[yset] < rank[xset]) {
+                parents[yset] = xset;
+            }
+            else {
+                parents[yset] = xset;
+                rank[xset]++;
+            }
+            size--;
+        }
     }
     
     int removeStones(vector<vector<int>>& stones) {
-        for (int i = 0; i < stones.size(); ++i)
-            uni(stones[i][0], ~stones[i][1]);
-        return stones.size() - islands;
+        for (auto& stone : stones) {
+            int i = stone[0], j = stone[1];
+            uni(i, ~j);
+        }
+        return stones.size() - size;
     }
-    
 };
