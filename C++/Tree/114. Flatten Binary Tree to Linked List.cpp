@@ -13,19 +13,24 @@ class Solution {
 public:
     
     pair<TreeNode*, TreeNode*> helper(TreeNode* root) {
+        
         if (!root || (!root->left && !root->right)) return {root, root};
-        TreeNode* left = root->left, * right = root->right;
-        auto leftRes = helper(left);
-        auto rightRes = helper(right);
+                
+        auto l = helper(root->left);
+        auto r = helper(root->right);
+        
+        TreeNode* lHead = l.first, * lTail = l.second;
+        TreeNode* rHead = r.first, * rTail = r.second;
         
         root->left = nullptr;
-        if (get<0>(leftRes)) {
-            root->right = get<0>(leftRes);
-            get<1>(leftRes)->right = get<0>(rightRes);
+        
+        if (lHead) {
+            root->right = lHead;
+            lTail->right = rHead;
         }
         
-        if (get<1>(rightRes)) return {root, get<1>(rightRes)};
-        else return {root, get<1>(leftRes)};
+        if (rTail) return {root, rTail};
+        else return {root, lTail};
     }
     
     void flatten(TreeNode* root) {
