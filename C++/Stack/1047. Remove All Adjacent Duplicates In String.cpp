@@ -1,24 +1,15 @@
-#include <deque>
-
 class Solution {
 public:
     string removeDuplicates(string s) {
-        deque<char> stk;
+        string ans = "";
         for (char c : s) {
-            if (!stk.empty() && stk.back() == c) {
-                stk.pop_back();
+            if (!ans.empty() and ans.back() == c) {
+                ans.pop_back();
             }
             else {
-                stk.push_back(c);
+                ans.push_back(c);
             }
         }
-        
-        string res = "";
-        while (!stk.empty()) {
-            res += stk.front();
-            stk.pop_front();
-        }
-        
-        return res;
+        return ans;
     }
 };
