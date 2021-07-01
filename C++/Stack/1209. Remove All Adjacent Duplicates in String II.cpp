@@ -1,26 +1,27 @@
-#include <stack>
-#include <utility>
-
 class Solution {
 public:
     string removeDuplicates(string s, int k) {
-        stack<pair<char, int>> cStack;
-        int count;
-        for (char ch: s){
-            count = (cStack.empty() || cStack.top().first!=ch) ? 1 : cStack.top().second+1;
-            cStack.push({ch, count});
-            if (cStack.top().second == k) {
-                for (int i = 0; i < k; i++){
-                    cStack.pop();
+        deque<pair<char, int>> dq; // {letter, count}
+        for (char c : s) {
+            if (!dq.empty() && c == dq.back().first) {
+                if (dq.back().second >= k-1) {
+                    dq.pop_back();
+                }
+                else {
+                    dq.back().second++;
                 }
             }
+            else {
+                dq.push_back({c, 1});
+            }
         }
-        string res = "";
-        while (!cStack.empty()){
-            res+=cStack.top().first;
-            cStack.pop();
+        string ans = "";
+        while (!dq.empty()) {
+            for (int i = 0; i < dq.front().second; i++) {
+                ans += dq.front().first;
+            }
+            dq.pop_front();
         }
-        reverse(res.begin(), res.end());
-        return res;
+        return ans;
     }
 };
