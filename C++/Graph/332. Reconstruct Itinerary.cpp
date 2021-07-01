@@ -1,25 +1,27 @@
 class Solution {
 public:
-    unordered_map<string, priority_queue<string, vector<string>, std::greater<string>>> vec;
+    unordered_map<string, priority_queue<string, vector<string>, std::greater<string>>> flights;
 
-    vector<string> stk;
+    vector<string> itinerary;
 
-    void dfs(const string& curr) {
-        while (vec.count(curr) && vec[curr].size() > 0) {
-            string tmp = vec[curr].top();
-            vec[curr].pop();
-            dfs(move(tmp));
+    void dfs(string& curr) {
+        while (flights.count(curr) && flights[curr].size() > 0) {
+            string arrive = flights[curr].top();
+            flights[curr].pop();
+            dfs(arrive);
         }
-        stk.emplace_back(curr);
+        itinerary.push_back(curr);
     }
 
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        for (auto& it : tickets) {
-            vec[it[0]].emplace(it[1]);
+        for (auto& ticket : tickets) {
+            string depart = ticket[0], arrive = ticket[1];
+            flights[depart].push(arrive);
         }
-        dfs("JFK");
+        string currPos = "JFK";
+        dfs(currPos);
 
-        reverse(stk.begin(), stk.end());
-        return stk;
+        reverse(itinerary.begin(), itinerary.end());
+        return itinerary;
     }
 };
