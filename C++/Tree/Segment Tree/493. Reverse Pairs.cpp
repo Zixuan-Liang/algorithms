@@ -1,35 +1,43 @@
-typedef long long int lli;
-
 class Solution {
-private:
-    void update(vector<int>& tree, int n, int idx, int val) {
-        idx += n;
-        tree[idx] += val;
-        for (int i=idx; i>1; i>>=1) tree[i>>1] = tree[i] + tree[i^1];
-    }
-    int query(vector<int>& tree, int n, int pos) {
-        int l = pos + n, r = 2 * n, sum = 0;
-        for (; l<r; l>>=1, r>>=1) {
-            if (l & 1) sum += tree[l++];
-            if (r & 1) sum += tree[--r];
-        }
-        return sum;
-    }
-    int getIndex(int *a, int n, lli val) {
-        return lower_bound(a, a+n, val) - a;
-    }
 public:
     int reversePairs(vector<int>& nums) {
-        if (nums.empty()) return 0;
-        int n = nums.size(), inversions = 0;
-        int temp[n];
-        vector<int> tree(n<<1,0);
-        for (int i=0; i<n; i++) temp[i] = nums[i];
-        sort(temp, temp+n);
-        for (lli num : nums) {
-            inversions += query(tree, n, getIndex(temp, n, num*2+1));
-            update(tree, n, getIndex(temp, n, num), 1);
+        set<int> s;
+        for (int& x : nums) s.insert(x);
+        vector<long long> v;
+        for (auto it = s.begin(); it != s.end(); it++) v.push_back(*it);
+        unordered_map<int, int> m;
+        for (int i = 0; i < v.size(); i++) m[v[i]] = i;
+        int n = v.size(), ret = 0;
+        vector<int> segtree(2 * n);
+        for (int i = nums.size()-1; i >= 0; i--)
+        {
+            if (v[0] * 2 < nums[i])
+            {
+                int left = 0, right = n-1, mid = (right + 1) / 2;
+                while (left < right)
+                {
+                    if (v[mid] * 2 < nums[i]) left = mid;
+                    else right = mid - 1;
+                    mid = (left + right + 1) / 2;
+                }
+                ret += query(segtree, 0, mid, n);
+            }
+            update(segtree, m[nums[i]], n);
         }
-        return inversions;
+        return ret;
+    }
+    int query(vector<int>& segtree, int a, int b, int n)
+    {
+        int ret = 0;
+        for (a += n, b += n; a <= b; a >>= 1, b >>= 1)
+        {
+            if (a & 1) ret += segtree[a++];
+            if (!(b & 1)) ret += segtree[b--];
+        }
+        return ret;
+    }
+    void update(vector<int>& segtree, int a, int n)
+    {
+        for (a += n; a; a >>= 1) segtree[a]++;
     }
 };
