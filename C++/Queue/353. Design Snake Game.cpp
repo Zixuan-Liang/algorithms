@@ -53,9 +53,8 @@ public:
             grid[r][c] = 'S';
             snake.push_front({r, c});
             auto tail = snake.back();
-            grid[tail[0]][tail[1]] = 'E';
+            if (tail != vector<int>{r, c}) grid[tail[0]][tail[1]] = 'E'; // Stupid corner case
             snake.pop_back();
-            if (tail == vector<int>{r, c}) grid[r][c] = 'S'; // Stupid corner case
             return score;
         }
     }
