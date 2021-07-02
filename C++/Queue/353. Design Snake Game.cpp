@@ -37,9 +37,6 @@ public:
         auto next = dirs[direction];
         vector<int> head = snake.front();
         int r = head[0] + next[0], c = head[1] + next[1];
-        if (m == 19) {
-            cout << "hehe" << endl;
-        }
         if (r < 0 || r >= height || c < 0 || c >= width || grid[r][c] == 'S' && snake.back() != vector<int>{r, c}) { // Stupid corner case
             return -1;
         }
