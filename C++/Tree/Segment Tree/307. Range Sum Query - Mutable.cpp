@@ -5,47 +5,61 @@ class NumArray {
     
 public:
     
-    void buildTree(vector<int>& nums) {
-        for (int i = n, j = 0; i < 2 * n; i++, j++) {
-            tree[i] = nums[j];
+    void buildTree(vector<int>& nums, int node, int left, int right) {
+        if (left == right) {
+            tree[node] = nums[left];
         }
-        for (int i = n - 1; i > 0; i--) {
-            tree[i] = tree[i * 2] + tree[i * 2 + 1];
+        else {
+            int mid = left + (right - left) / 2;
+            buildTree(nums, node * 2, left, mid);
+            buildTree(nums, node * 2 + 1, mid + 1, right);
+            tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        }
+    }
+    
+    void updateTree(int node, int left, int right, int index, int val) {
+        if (left == right) {
+            tree[node] = val;
+        }
+        else {
+            int mid = left + (right - left) / 2;
+            if (index <= mid) {
+                updateTree(node * 2, left, mid, index, val);
+            }
+            else {
+                updateTree(node * 2 + 1, mid + 1, right, index, val);
+            }
+            tree[node] = tree[node * 2] + tree[node * 2 + 1];
+        }
+    }
+    
+    int queryTree(int node, int left, int right, int queryLeft, int queryRight) {
+        if (queryRight < left or right < queryLeft) {
+            return 0;
+        }
+        else if (queryLeft <= left and right <= queryRight) {
+            return tree[node];
+        }
+        else {
+            int mid = left + (right - left) / 2;
+            int q1 = queryTree(node * 2, left, mid, queryLeft, queryRight);
+            int q2 = queryTree(node * 2 + 1, mid + 1, right, queryLeft, queryRight);
+            return q1 + q2;
         }
     }
     
     NumArray(vector<int>& nums) {
         n = nums.size();
-        tree = vector<int>(2*n, 0);
-        buildTree(nums);
+        tree = vector<int>(4*n, 0);
+        buildTree(nums, 1, 0, n-1);
     }
     
     void update(int index, int val) {
-        index += n;
-        tree[index] = val;
-        while (index > 1) {
-            index = index / 2;
-            tree[index] = tree[index * 2] + tree[index * 2 + 1];
-        }
+        updateTree(1, 0, n-1, index, val);
     }
     
     int sumRange(int left, int right) {
-        int ans = 0;
-        left += n;
-        right += n;
-        while (left <= right) {
-            if (left % 2 == 1) {
-                ans += tree[left];
-                left++;
-            }
-            left = left / 2;
-            if (right % 2 == 0) {
-                ans += tree[right];
-                right--;
-            }
-            right = right / 2;
-        }
-        return ans;
+        return queryTree(1, 0, n-1, left, right);
     }
 };
 
