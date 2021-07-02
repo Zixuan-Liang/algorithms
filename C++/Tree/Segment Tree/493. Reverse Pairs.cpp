@@ -53,18 +53,18 @@ class Solution {
 public:
     
     int reversePairs(vector<int>& nums) {
-        
+        // 找出所有出现过的数值并排序
         unordered_set<int> uset;
         for (int n : nums) uset.insert(n);
         vector<int> v(uset.begin(), uset.end());
         sort(v.begin(), v.end());
-        
+        // 根据排好序的数值建立线段树
         SegmentTree* tree = new SegmentTree(v, 0, v.size() - 1);
-        
+        // 遍历数组，查询并更新线段树
         int ans = 0;
         for (int i = 0; i < nums.size(); i++) {
-            ans += tree->queryTree(2 * (long)nums[i] + 1, (long)v.back());
-            tree->updateTree(nums[i]);
+            ans += tree->queryTree(2 * (long)nums[i] + 1, (long)v.back()); // 查询大于当前数值两倍，并且在它之前的，有多少个
+            tree->updateTree(nums[i]); // 把当前数值写进树
         }
         return ans;
     }
