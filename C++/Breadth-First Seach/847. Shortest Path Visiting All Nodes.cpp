@@ -9,24 +9,17 @@ struct Tuple {
         cost = c;
     }
 
-    bool equals(const Tuple& p) const {
-        return bitMask == p.bitMask && curr == p.curr && cost == p.cost;
+    bool operator==(const Tuple& other) const {
+        return bitMask == other.bitMask && curr == other.curr; // cost无所谓，因为只关心已访问节点和当前节点
     }
-
-    int hashCode() const {
-        return 1331 * bitMask + 7193 * curr + 727 * cost;
-    }
+    
 };
 
-struct Hash {
+struct TupleHash {
     size_t operator() (const Tuple &p) const {
-        return p.hashCode();
+        return std::hash<int>{}(p.bitMask) ^ std::hash<int>{}(p.curr); // cost无所谓，因为只关心已访问节点和当前节点
     }
 };
-
-static bool operator==(const Tuple& lhs, const Tuple& rhs) {
-    return lhs.equals(rhs);
-}
 
 class Solution {
 public:
@@ -35,7 +28,7 @@ public:
         int N = graph.size();
 
         queue<Tuple> q;
-        unordered_set<Tuple, Hash> visited;
+        unordered_set<Tuple, TupleHash> visited;
 
         for (int i = 0; i < N; i++) {
             int tmp = (1 << i);
