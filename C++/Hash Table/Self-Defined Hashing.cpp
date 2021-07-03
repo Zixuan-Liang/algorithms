@@ -15,3 +15,12 @@ struct PairHash{
         return h1^h2;
     }
 };
+
+// You can do it like this
+using namespace std;
+struct PairHash{
+    size_t operator()(const pair<int, int>& p) const {
+        auto intHash = hash<int>();
+        return intHash(p.first) ^ intHash(p.second);
+    }
+};

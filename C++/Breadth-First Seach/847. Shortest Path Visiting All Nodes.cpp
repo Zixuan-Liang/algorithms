@@ -17,7 +17,8 @@ struct Tuple {
 
 struct TupleHash {
     size_t operator() (const Tuple &p) const {
-        return std::hash<int>{}(p.bitMask) ^ std::hash<int>{}(p.curr); // cost无所谓，因为只关心已访问节点和当前节点
+        auto intHash = std::hash<int>();
+        return intHash(p.bitMask) ^ intHash(p.curr); // cost无所谓，因为只关心已访问节点和当前节点
     }
 };
 
