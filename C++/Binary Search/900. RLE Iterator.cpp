@@ -3,6 +3,7 @@ class RLEIterator {
     vector<long> count;
     vector<int> nums;
     long curr;
+    int currGroup;
     
 public:
     RLEIterator(vector<int>& encoding) {
@@ -16,6 +17,7 @@ public:
             }
         }
         curr = 0;
+        currGroup = 0;
     }
     
     int next(int n) {
@@ -24,8 +26,9 @@ public:
             return -1;
         }
         else {
-            auto lower = lower_bound(count.begin(), count.end(), curr);
-            return nums[lower - count.begin()];
+            auto lower = lower_bound(count.begin() + currGroup, count.end(), curr);
+            currGroup = lower - count.begin();
+            return nums[currGroup];
         }
     }
 };
