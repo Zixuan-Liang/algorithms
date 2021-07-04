@@ -1,49 +1,48 @@
 class Solution {
+    
+    int m;
+    int n;
+    vector<vector<int>> visited;
+    vector<pair<int, int>> adjs = {{-1,0},{1,0},{0,-1},{0,1}};
+    
 public:
     
-    vector<vector<int>> neighbors(vector<int> p, int m, int n) {
-        int i = p[0], j = p[1];
-        vector<vector<int>> candidates = {{i-1,j},{i+1,j},{i,j-1},{i,j+1}};
-        vector<vector<int>> res;
-        for (auto& c : candidates) {
-            if (c[0]>=0 && c[0]<m && c[1]>=0 && c[1]<n) {
-                res.push_back(c);
-            }
-        }
-        return res;
+    bool isEdge(int i, int j) {
+        return i==0 or i==m-1 or j==0 or j==n-1;
     }
     
-    bool isEdge(int i, int j, int m, int n) {
-        return i==0 || i==m-1 || j==0 || j==n-1;
+    bool isLegit(int i, int j) {
+        return i >= 0 and i < m and j >= 0 and j < n;
     }
     
-    void dfs(int i, int j, vector<vector<char>>& board, int m, int n, vector<vector<int>>& visited, vector<vector<int>>& positions, bool& flip) {
+    void dfs(vector<vector<char>>& board, int i, int j, bool flip) {
+        board[i][j] = flip ? 'X' : board[i][j];
         visited[i][j] = 1;
-        vector<int> p = {i, j};
-        positions.push_back(p);
-        for (auto& next : neighbors(p, m, n)) {
-            int r = next[0], c = next[1];
-            if (board[r][c] == 'O' && visited[r][c] == 0) {
-                if (isEdge(r, c, m, n)) flip = false;
-                dfs(r, c, board, m, n, visited, positions, flip);
+        for (auto [di, dj] : adjs) {
+            int ni = i + di, nj = j + dj;
+            if (isLegit(ni, nj) and board[ni][nj] == 'O' and visited[ni][nj] == 0) {
+                dfs(board, ni, nj, flip);
             }
         }
     }
     
     void solve(vector<vector<char>>& board) {
-        int m = board.size(), n = board[0].size();
-        vector<vector<int>> visited(m, vector<int>(n, 0));
+        m = board.size();
+        n = board[0].size();
+        visited = vector<vector<int>>(m, vector<int>(n, 0));        
+        // Exclude the regions that are NOT surrounded
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'O' && visited[i][j] == 0) {
-                    vector<vector<int>> positions;
-                    bool flip = isEdge(i, j, m, n) ? false : true;
-                    dfs(i, j, board, m, n, visited, positions, flip);
-                    if (flip) {
-                        for (auto& p : positions) {
-                            board[p[0]][p[1]] = 'X';
-                        }
-                    }
+                if (isEdge(i, j) and board[i][j] == 'O' and visited[i][j] == 0) {
+                    dfs(board, i, j, false);
+                }
+            }
+        }
+        // Flip surrounded regions
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'O' and visited[i][j] == 0) {
+                    dfs(board, i, j, true);
                 }
             }
         }
