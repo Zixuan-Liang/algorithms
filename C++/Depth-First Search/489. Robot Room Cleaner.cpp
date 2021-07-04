@@ -7,10 +7,7 @@ struct PairHash {
 
 class Solution {
     
-    const int UP = 0;
-    const int RIGHT = 1;
-    const int DOWN = 2;
-    const int LEFT = 3;
+    const int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
     vector<pair<int, int>> dirs{{-1,0},{0,1},{1,0},{0,-1}};
     unordered_set<pair<int, int>, PairHash> visited;
     

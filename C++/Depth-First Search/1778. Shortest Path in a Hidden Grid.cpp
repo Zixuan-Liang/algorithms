@@ -40,7 +40,7 @@ public:
                     return ans;
                 }
                 else if (grid[x][y] == 1) {
-                    grid[x][y] = 0;
+                    grid[x][y] = -1;
                     for (auto [dir, dxy] : dirs) {
                         q.push({x + dxy.first, y + dxy.second});
                     }
