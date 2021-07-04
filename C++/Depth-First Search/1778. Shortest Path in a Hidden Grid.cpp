@@ -35,20 +35,23 @@ public:
     int findShortestPath(GridMaster &master) {
         int x = 500, y = 500, cnt = 0;
         map(master, x, y, 'U');
-        vector<pair<int, int>> q{{x, y}};
+        queue<pair<int, int>> q;
+        q.push({x, y});
         while (!q.empty()) {
-            vector<pair<int, int>> q1;
-            for (auto [x, y] : q) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                auto xy = q.front();
+                q.pop();
+                int x = xy.first, y = xy.second;
                 if (g[x][y] == 2)
                     return cnt;
                 if (g[x][y] == 1) {
-                    g[x][y] = -1;
+                    g[x][y] = 0;
                     for (auto [_, dd] : dirs)
-                        q1.push_back({x + dd[0], y + dd[1]});
+                        q.push({x + dd[0], y + dd[1]});
                 }
             }
             ++cnt;
-            swap(q, q1);
         }
         return -1;
     }
