@@ -1,26 +1,22 @@
-/**
- * // This is the robot's control interface.
- * // You should not implement it, or speculate about its implementation
- * class Robot {
- *   public:
- *     // Returns true if the cell in front is open and robot moves into the cell.
- *     // Returns false if the cell in front is blocked and robot stays in the current cell.
- *     bool move();
- *
- *     // Robot will stay in the same cell after calling turnLeft/turnRight.
- *     // Each turn will be 90 degrees.
- *     void turnLeft();
- *     void turnRight();
- *
- *     // Clean the current cell.
- *     void clean();
- * };
- */
+struct PairHash {
+    size_t operator()(const pair<int, int>& p) const {
+        auto intHash = hash<int>();
+        return intHash(p.first) ^ intHash(p.second);
+    }  
+};
 
 class Solution {
+    
+    const int UP = 0;
+    const int RIGHT = 1;
+    const int DOWN = 2;
+    const int LEFT = 3;
+    vector<pair<int, int>> dirs{{-1,0},{0,1},{1,0},{0,-1}};
+    unordered_set<pair<int, int>, PairHash> visited;
+    
 public:
     
-    void goBack(Robot& robot) {
+    void moveBack(Robot& robot) {
         robot.turnRight();
         robot.turnRight();
         robot.move();
@@ -28,24 +24,33 @@ public:
         robot.turnRight();
     }
     
-    void backtrack(Robot& robot, vector<int> p, int d, vector<vector<int>>& directions, set<vector<int>>& visited) {
-        visited.insert(p);
+    void search(Robot& robot, int curr_x, int curr_y, int dir) {
+        visited.insert({curr_x, curr_y});
         robot.clean();
-        for (int i = 0 ; i < 4; i++) {
-            int nd = (d + i) % 4;
-            vector<int> np = {p[0] + directions[nd][0], p[1] + directions[nd][1]};
-            if (visited.find(np) == visited.end() && robot.move()) {
-                backtrack(robot, np, nd, directions, visited);
-                goBack(robot);
+        for (int i = 0; i < 4; i++) {
+            int new_dir = (dir+i) % 4;
+            int new_x = curr_x + dirs[new_dir].first;
+            int new_y = curr_y + dirs[new_dir].second;
+            if (!visited.count({new_x, new_y}) and robot.move()) {
+                search(robot, new_x, new_y, new_dir);
+                moveBack(robot);
             }
             robot.turnRight();
         }
     }
     
     void cleanRoom(Robot& robot) {
-        vector<vector<int>> directions = {{-1,0},{0,1},{1,0},{0,-1}};
-        set<vector<int>> visited;
-        backtrack(robot, {0, 0}, 0, directions, visited);
+        search(robot, 0, 0, UP);
     }
 };
+
+
+
+
+
+
+
+
+
+
 
