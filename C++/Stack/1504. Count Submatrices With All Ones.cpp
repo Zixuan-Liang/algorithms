@@ -23,7 +23,7 @@ public:
             int sum = 0; 
             while (i <= n - 1) { 
                 int height = 1; 
-                while (!Q.empty() && Q.top().first > row[i][j]) {
+                while (!Q.empty() && Q.top().first >= row[i][j]) {
                   	// 弹出的时候要减去多于的答案
                     sum -= Q.top().second * (Q.top().first - row[i][j]); 
                     height += Q.top().second; 
