@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // can also just use multiset<string>
     unordered_map<string, priority_queue<string, vector<string>, std::greater<string>>> flights;
 
     vector<string> itinerary;
