@@ -1,3 +1,10 @@
+# The len < 6 and 6 <= len <= 20 cases are easy. When len > 20, we need to do len - 20 times deletion. 
+# Also we need to do a change for every three repeating characters.
+
+# For any repeating sequences with len % 3 == 0, we can reduce one replacement by deleting one character. 
+# For any repeating sequences with len % 3 == 1, we can reduce one replacement by deleting two character. 
+# For the remaining sequences, we can reduce every replacement by deleting three character.
+
 class Solution:
     def strongPasswordChecker(self, password: str) -> int:
         s = password
