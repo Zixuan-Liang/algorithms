@@ -1,10 +1,12 @@
 class LFUCache {
+
     int capacity, minFreq;
     unordered_map<int, pair<int, int>> keyValFreq;
     unordered_map<int, list<int>> freqKey;
     unordered_map<int, list<int>::iterator> keyIter;
 
 public:
+
     LFUCache(int capacity) : capacity(capacity) {}
 
     int get(int key) {
@@ -15,7 +17,7 @@ public:
         freqKey[freq].emplace_front(key);
         keyIter[key] = freqKey[freq].begin();
         keyValFreq[key].second = freq;
-        
+
         if (freqKey[minFreq].empty()) minFreq = freq;
         
         return keyValFreq[key].first;
