@@ -15,19 +15,19 @@ class Solution {
     
 public:
     
-    bool backtrack(int i, int j, string& text, string& pattern, map<pair<int, int>, bool>& memo) {
+    bool helper(int i, int j, string& text, string& pattern, map<pair<int, int>, bool>& memo) {
         bool res;
-        if (memo.find({i, j}) == memo.end()) {
+        if (!memo.count({i, j})) {
             if (j == pattern.size()) {
                 res = i == text.size();
             }
             else {
                 if (pattern[j] == '*') {
-                    res = backtrack(i, j+1, text, pattern, memo) || backtrack(i+1, j+1, text, pattern, memo);
-                    if (i < text.size()) res = res || backtrack(i+1, j, text, pattern, memo);
+                    res = helper(i, j+1, text, pattern, memo) || helper(i+1, j+1, text, pattern, memo);
+                    if (i < text.size()) res = res || helper(i+1, j, text, pattern, memo);
                 }
                 else if (i < text.size() && (text[i] == pattern[j] || pattern[j] == '?')) {
-                    res = backtrack(i+1, j+1, text, pattern, memo);
+                    res = helper(i+1, j+1, text, pattern, memo);
                 }
                 else {
                     res = false;
@@ -40,6 +40,6 @@ public:
     
     bool isMatch(string s, string p) {
         map<pair<int, int>, bool> memo;
-        return backtrack(0, 0, s, p, memo);
+        return helper(0, 0, s, p, memo);
     }
 };
