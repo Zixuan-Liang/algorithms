@@ -9,7 +9,9 @@
 class Solution {
 public:
     
-    // 对栈内数值和当前数值进行一次操作，并压栈
+    unordered_set<char> operators = {'+','-','*','/'};
+
+    // 栈顶数值和当前数值进行一次操作
     void operate(vector<int>& stack, char presign, int num) {
         if (presign == '+') {
             stack.push_back(num);
@@ -18,18 +20,12 @@ public:
             stack.push_back(-num);
         }
         else if (presign == '*') {
-            int tmp = stack.back() * num;
-            stack.pop_back();
-            stack.push_back(tmp);
+            stack.back() *= num;
         }
         else if (presign == '/') {
-            int tmp = trunc(stack.back() / num);
-            stack.pop_back();
-            stack.push_back(tmp);
+            stack.back() /= num;
         }
-        else {
-            // raise error;
-        }
+        else {} // raise error
     }
     
     int sum(vector<int>& stack) {
@@ -45,22 +41,22 @@ public:
             if (isdigit(s[i])) { // 遇到数字，更新当前数值
                 num = num * 10 + (s[i] - '0');
             }
-            else if (s[i] == '+' or s[i] == '-' or s[i] == '*' or s[i] == '/') { // 遇到操作符，对栈进行一次操作，更新当前值和符号
+            else if (operators.count(s[i])) { // 遇到操作符，对栈进行一次操作，更新当前值和符号
                 operate(stack, presign, num);
                 presign = s[i];
                 num = 0;
             }
             else if (s[i] == '(') { // 遇到左括号，从下一个索引值开始递归调用
-                auto tmp = dfs(s, i+1);
-                num = tmp.first; // 递归调用返回的结果就是这对括号内的计算结果！更新当前数值为此结果
-                i = tmp.second; // 同样需要更新当前索引值（更新为这对括号的右括号索引值）
+                auto bracket = dfs(s, i+1);
+                num = bracket.first; // 递归调用返回的结果就是这对括号内的计算结果！更新当前数值为此结果
+                i = bracket.second; // 同样需要更新当前索引值（更新为这对括号的右括号索引值）
             }
             else if (s[i] == ')') { // 遇到右括号，对栈再进行括号内最后一次操作，再返回栈内元素和，这对括号计算完毕
                 operate(stack, presign, num);
                 return {sum(stack), i};
             }
             else {
-                // raise error;
+                // ignore space
             }
             i++;
         }
@@ -68,7 +64,7 @@ public:
     }
     
     int calculate(string s) {
-        s.push_back('+'); // 输入字符串后面加一个'+'方便最后返回结果
+        s += '+'; // 输入字符串后面加一个'+'方便最后返回结果
         return dfs(s, 0).first; // 
     }
 };
