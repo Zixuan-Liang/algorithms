@@ -10,12 +10,12 @@ public:
     MyCalendar() {}
     
     bool book(int start, int end) {
-        auto ub = events.upper_bound(start);
-        auto lb = events.lower_bound(end);
-        if (ub != lb) { // 开始时间的upper_bound不等于结束时间的lower_bound，说明有重叠
+        auto lb1 = events.lower_bound(start);
+        auto lb2 = events.lower_bound(end);
+        if (lb1 != lb2) { // 开始时间的lower_bound不等于结束时间的lower_bound，说明有重叠
             return false;
         }
-        else if (ub != events.begin() && (--ub)->second > start) { // 开始时间的upper_bound-1结束时间大于开始时间，说明有重叠
+        else if (lb1 != events.begin() && (--lb1)->second > start) { // 开始时间的lower_bound-1结束时间大于开始时间，说明有重叠
             return false;
         }
         else {
