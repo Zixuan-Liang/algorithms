@@ -1,25 +1,30 @@
-class TopVotedCandidate
-{
-    map<int, int> m;
+class TopVotedCandidate {
+    
+    vector<int> leads;
     vector<int> times;
-
+    
 public:
-    TopVotedCandidate(vector<int> persons, vector<int> times)
-    {
-        int n = persons.size(), lead = -1;
+    TopVotedCandidate(vector<int>& persons, vector<int>& times) {
         this->times = times;
+        leads.resize(times.size(), 0);
         unordered_map<int, int> count;
-        for (int i = 0; i < n; ++i)
-        {
-            lead = ++count[persons[i]] >= count[lead] ? persons[i] : lead;
-            m[times[i]] = lead;
+        int currLead = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            int person = persons[i];
+            count[person]++;
+            if (count[person] >= currLead) {
+                leads[i] = person;
+                currLead = count[person];
+            }
+            else {
+                leads[i] = leads[i-1];
+            }
         }
     }
-
-    int q(int t)
-    {
-        return (--m.upper_bound(t))->second;
-        // return (*--m.upper_bound(t)).second;
+    
+    int q(int t) {
+        auto ub = upper_bound(times.begin(), times.end(), t);
+        return leads[ub - 1 - times.begin()];
     }
 };
 
