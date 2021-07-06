@@ -1,26 +1,29 @@
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-        set<string> word_set(wordDict.begin(), wordDict.end());
-        // In the memo table, -1 stands for the state not yet reached,
-        // 0 for false and 1 for true
-        vector<int> memo(s.length(), -1);
-        return wordBreakMemo(s, word_set, 0, memo);
-    }
-
-    bool wordBreakMemo(string& s, set<string>& word_set, int start, vector<int>& memo) {
-        if (start == s.length()) {
+    
+    bool helper(string& s, unordered_set<string>& words, int start, unordered_map<int, bool>& dp) {
+        if (start == s.size()) {
             return true;
         }
-        if (memo[start] != -1) {
-            return memo[start];
+        if (dp.count(start)) {
+            return dp[start];
         }
-        for (int end = start + 1; end <= s.length(); end++) {
-            if (word_set.find(s.substr(start, end - start)) != word_set.end() and
-                wordBreakMemo(s, word_set, end, memo)) {
-                return memo[start] = true;
+        for (int len = 1; len <= s.size() - start; len++) {
+            if (words.count(s.substr(start, len))) {
+                if (helper(s, words, start+len, dp)) {
+                    dp[start] = true;
+                    return true;
+                }
             }
         }
-        return memo[start] = false;
+        dp[start] = false;
+        return false;
     }
+    
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> words(wordDict.begin(), wordDict.end());
+        unordered_map<int, bool> dp;
+        return helper(s, words, 0, dp);
+    }
+
 };
