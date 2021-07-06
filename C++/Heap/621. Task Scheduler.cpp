@@ -1,33 +1,33 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        unordered_map<char, int> counts;
-        for (char t : tasks) {
-            counts[t]++;
+        unordered_map<char, int> taskCount;
+        for (char task : tasks) {
+            taskCount[task]++;
         }
-        priority_queue<pair<int, char>> pq;
-        for (pair<char, int> count : counts) {
-            pq.push(make_pair(count.second, count.first));
+        priority_queue<pair<int, char>> taskQueue;
+        for (auto [task, count] : taskCount) {
+            taskQueue.push({count, task});
         }
-        int alltime = 0;
+        int allTime = 0;
         int cycle = n + 1;
-        while (!pq.empty()) {
+        while (!taskQueue.empty()) {
+            vector<pair<int, char>> currCycle;
             int time = 0;
-            vector<pair<int, char>> tmp;
             for (int i = 0; i < cycle; i++) {
-                if (!pq.empty()) {
-                    tmp.push_back(pq.top());
-                    pq.pop();
+                if (!taskQueue.empty()) {
+                    currCycle.push_back(taskQueue.top());
+                    taskQueue.pop();
                     time++;
                 }
             }
-            for (auto t : tmp) {
-                if (--t.first) {
-                    pq.push(t);
+            for (auto [count, task] : currCycle) {
+                if (count - 1 > 0) {
+                    taskQueue.push({count - 1, task});
                 }
             }
-            alltime += !pq.empty() ? cycle : time;
+            allTime += taskQueue.empty() ? time : cycle;
         }
-        return alltime;
+        return allTime;
     }
 };
