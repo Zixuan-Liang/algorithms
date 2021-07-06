@@ -46,10 +46,10 @@ public:
         while (!que.empty()) {
             int len = que.size();
             for (int i = 0; i < len; i++) {
-                vector<string> front = que.front();
+                vector<string> front = que.front(); que.pop();
                 visited.insert(front.back());
                 for (string& p : patterns[front.back()]) {
-                    if (target.find(p) != target.end()) {
+                    if (target.count(p)) {
                         found = true;
                         front.push_back(endWord);
                         res.push_back(front);
@@ -57,15 +57,14 @@ public:
                     }
                     else {
                         for (string& n : neighbors[p]) {
-                            if (visited.find(n) == visited.end()) {
+                            if (!visited.count(n)) {
                                 front.push_back(n);
                                 que.push(front);
                                 front.pop_back();
                             }
                         }
                     }
-                }
-                que.pop();
+                }    
             }
             if (found) break;
         }
