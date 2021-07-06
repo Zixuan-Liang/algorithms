@@ -1,40 +1,38 @@
 class Solution {
 public:
     int longestSubstring(string s, int k) {
-        int ret = 0;
-        int n = s.length();
-        for (int t = 1; t <= 26; t++) {
-            int l = 0, r = 0;
-            vector<int> cnt(26, 0);
-            int tot = 0;
-            int less = 0;
-            while (r < n) {
-                cnt[s[r] - 'a']++;
-                if (cnt[s[r] - 'a'] == 1) {
-                    tot++;
-                    less++;
+        int ans = 0;
+        int n = s.size();
+        for (int limit = 1; limit <= 26; limit++) {
+            vector<int> count(26, 0);
+            int left = 0, right = 0;
+            int unique = 0, lessThanK = 0;
+            while (right < n) {
+                count[s[right] - 'a']++;
+                if (count[s[right] - 'a'] == 1) {
+                    unique++;
+                    lessThanK++;
                 }
-                if (cnt[s[r] - 'a'] == k) {
-                    less--;
+                if (count[s[right] - 'a'] == k) {
+                    lessThanK--;
                 }
-
-                while (tot > t) {
-                    cnt[s[l] - 'a']--;
-                    if (cnt[s[l] - 'a'] == k - 1) {
-                        less++;
+                while(unique > limit) {
+                    count[s[left] - 'a']--;
+                    if (count[s[left] - 'a'] == 0) {
+                        unique--;
+                        lessThanK--;
                     }
-                    if (cnt[s[l] - 'a'] == 0) {
-                        tot--;
-                        less--;
+                    if (count[s[left] - 'a'] == k - 1) {
+                        lessThanK++;
                     }
-                    l++;
+                    left++;
                 }
-                if (less == 0) {
-                    ret = max(ret, r - l + 1);
+                if (lessThanK == 0) {
+                    ans = max(ans, right - left + 1);
                 }
-                r++;
+                right++;
             }
         }
-        return ret;
+        return ans;
     }
 };
