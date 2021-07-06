@@ -4,27 +4,26 @@ class Solution {
 
 public:
     
-    int helper(int n, int k) {
-
-        if (memo.count(k*100+n)) return memo[k*100+n];
+    int helper(int n) {
         
-        if (k == 2 && n == 2) {
-            return 1;
-        }
-        else if (k == 1 && n <= 3) {
+        if (memo.count(n)) return memo[n];
+        
+        if (n <= 3) {
             return n;
         }
         else {
             int res = 1;
             for (int i = 2; i <= n/2+1; i++) {
-                res = max(res, helper(n-i, 1) * helper(i, 1));
+                res = max(res, helper(n-i) * helper(i));
             }
-            memo[k*100+n] = res;
+            memo[n] = res;
             return res;
         }
     }
     
     int integerBreak(int n) {
-        return helper(n, 2);
+        if (n == 2) return 1;
+        if (n == 3) return 2;
+        return helper(n);
     }
 };
