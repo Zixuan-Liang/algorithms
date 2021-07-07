@@ -16,29 +16,21 @@ public:
 
 
 // O(n) time O(1) space, find gcd and rotate by groups
+
 #include <numeric>
 class Solution {
 public:
-
     void rotate(vector<int>& nums, int k) {
         int n = nums.size();
         k = k % n;
-        if (k == 0) {
-            return ;
-        }
-        else {
-            int group = n / gcd(n, k);
-            for (int i = 0; i < n / group; i++) {
-                int curr = i;
-                int temp = nums[curr];
-                int temp2;
-                for (int j = 0; j < group; j++) {
-                    temp2 = nums[(curr+k)%n];
-                    nums[(curr+k)%n] = temp;
-                    curr = (curr+k)%n;
-                    temp = temp2;
-                }
-            }
+        int count = gcd(k, n);
+        for (int start = 0; start < count; ++start) {
+            int current = start;
+            do {
+                int next = (current + k) % n;
+                swap(nums[next], nums[start]);
+                current = next;
+            } while (start != current);
         }
     }
 };
