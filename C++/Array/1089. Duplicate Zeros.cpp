@@ -1,17 +1,22 @@
-// First, go left to right and count how many shifts (sh) we can fit in our array.
-// Then, go right to left and move items; if it's zero - duplicate it and decrement the shift.
-
-// Note: i + sh can exceed the array size. We need a check for this case.
-
 class Solution {
 public:
 
-    void duplicateZeros(vector<int>& a, int i = 0, int sh = 0) {
-      for (i = 0; sh + i < a.size(); ++i) sh += a[i] == 0;
-      for (i = i - 1; sh > 0; --i) {
-        if (i + sh < a.size()) a[i + sh] = a[i];
-        if (a[i] == 0) a[i + --sh] = a[i];
-      }
+    void duplicateZeros(vector<int>& A) {
+        int n = A.size(), zeros = count(A.begin(), A.end(), 0);
+        int i = n - 1;
+        int write = n + zeros - 1;
+        while (i >= 0 && write >= 0) {
+            if (A[i] != 0) { // Non-zero, just write it in
+                if (write < n) A[write] = A[i];
+            }
+            else { // Zero found, write it in twice if we can
+                if (write < n) A[write] = A[i];
+                write--;
+                if (write < n) A[write] = A[i];
+            }
+            i--;
+            write--;
+        }
     }
     
 };
