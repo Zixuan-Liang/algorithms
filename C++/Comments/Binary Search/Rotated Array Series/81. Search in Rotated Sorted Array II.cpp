@@ -1,12 +1,19 @@
 class Solution {
 public:
-    int search(vector<int>& nums, int target) {
+    bool search(vector<int>& nums, int target) {
         int left = 0, right = nums.size()-1;
+        while(left <= right && nums[left] == nums[right]) {
+            if(nums[left] == target) {
+                return true;
+            }
+            left++;
+            right--;
+        }
         int mid;
         while (left <= right) {
             mid = (left + right) / 2;
             if (nums[mid] == target) {
-                return mid;
+                return true;
             }
             else if(nums[mid] >= nums[left]) {
                 if(target >= nums[left] && target < nums[mid]) {
@@ -22,6 +29,6 @@ public:
                 }
             }
         }
-        return -1;
+        return false;
     }
 };
