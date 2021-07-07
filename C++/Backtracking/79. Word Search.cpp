@@ -1,23 +1,39 @@
 class Solution {
+    
+    int m;
+    int n;
+    vector<pair<int, int>> adjs = {{-1,0},{1,0},{0,-1},{0,1}};
+    
 public:
-   
-    bool backtrack(vector<vector<char>>& board, string& word, int x, int y, int index) {
-        if (index == word.size()) return true;
-        if (x<0 || x>=board.size() || y<0 || y>=board[0].size() || word[index]!=board[x][y]) return false;
-        char temp = board[x][y];
-        board[x][y] = '#';
-        bool res = backtrack(board, word, x-1, y, index+1) || backtrack(board, word, x+1, y, index+1) || 
-            backtrack(board, word, x, y-1, index+1) || backtrack(board, word, x, y+1, index+1);
-        board[x][y] = temp;
-        return res;
+    
+    bool backtrack(vector<vector<char>>& board, string& word, int i, int j, int matched) {
+        if (matched == word.size()) {
+            return true;
+        }
+        else {
+            for (auto [di, dj] : adjs) {
+                int ni = i + di, nj = j + dj;
+                if (ni >= 0 && ni < m && nj >= 0 && nj < n && board[ni][nj] == word[matched]) {
+                    board[ni][nj] = '#';
+                    bool res = backtrack(board, word, ni, nj, matched+1);
+                    board[ni][nj] = word[matched];
+                    if (res) return true;
+                }
+            }
+            return false;
+        }
     }
     
-    bool exist(vector<vector<char>>& board, string word) {        
-        int m = board.size(), n = board[0].size();
-        for (int x = 0; x < m; x++) {
-            for (int y = 0; y < n; y++) {
-                if (backtrack(board, word, x, y, 0)) {
-                    return true;
+    bool exist(vector<vector<char>>& board, string word) {
+        m = board.size();
+        n = board[0].size();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0]) {
+                    board[i][j] = '#';
+                    bool res = backtrack(board, word, i, j, 1);
+                    board[i][j] = word[0];
+                    if (res) return true;
                 }
             }
         }
