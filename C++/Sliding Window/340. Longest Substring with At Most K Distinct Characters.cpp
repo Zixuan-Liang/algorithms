@@ -11,9 +11,6 @@ public:
                     res = max(res, j - i + 1);
                     j++;
                 }
-                else {
-                    break;
-                }
             }
             while (i+1 < s.size() && counts.size() > k) {
                 counts[s[i]]--;
