@@ -3,23 +3,23 @@
 // 其实就是merge k sorted lists
 
 class Solution {
-    typedef pair<int, pair<int, int>> PII;
+    typedef tuple<int, int, int> TIII; // 元素值，元素所属的第i个数组，元素处于数组的j位置
 public:
     vector<int> smallestRange(vector<vector<int>> &nums) {
         int n = nums.size();
-        priority_queue<PII, vector<PII>, greater<PII>> pq;
-        int currMax = -1e7, start = -1e7, end = 1e7;
+        priority_queue<TIII, vector<TIII>, greater<TIII>> pq;
+        int currMax = -1e9, start = -1e9, end = 1e9;
         for (int i = 0; i < n; ++i) {
-            pq.push(make_pair(nums[i][0], make_pair(i, 0)));
+            pq.push({nums[i][0], i, 0});
             currMax = max(currMax, nums[i][0]);
         }
         while (pq.size() == n) {
-            PII a = pq.top();
+            TIII a = pq.top();
             pq.pop();
-            int val = a.first, i = a.second.first, j = a.second.second;
+            int val = get<0>(a), i = get<1>(a), j = get<2>(a);
             if (currMax - val < end - start) start = val, end = currMax;
             if (j + 1 < nums[i].size()) {
-                pq.push(make_pair(nums[i][j + 1], make_pair(i, j + 1))); 
+                pq.push({nums[i][j + 1], i, j + 1}); 
                 currMax = max(currMax, nums[i][j+1]);
             } 
         }
