@@ -1,3 +1,5 @@
+// O(nlogn)
+
 class Solution {
 public:
     
@@ -17,7 +19,8 @@ public:
     
     int minSubArrayLen(int target, vector<int>& nums) {
         int left = 1, right = nums.size() + 1;
-        while (left < right) {
+        // NNN...NNNYYY... 找出第一个Y
+        while (left < right) { // 循环不变量：答案可能存在于[left, right)
             int mid = left + (right - left) / 2;
             if (attemp(target, nums, mid)) {
                 right = mid;
@@ -26,7 +29,7 @@ public:
                 left = mid + 1;
             }
         }
-        if (left > nums.size()) {
+        if (left > nums.size()) { // 循环打破，根据最后一个剩下的数检查答案是否存在
             return 0; 
         }
         else {
