@@ -3,7 +3,8 @@
 
 using namespace std;
 
-vector<int> v(10, 0);
+vector<int> v(10, 0); // 10个0
+v.resize(20);
 fill(begin(v), end(v), 1); // 填满，初始化
 int sum = accumulate(begin(v), end(v), 0); // 求和
 
