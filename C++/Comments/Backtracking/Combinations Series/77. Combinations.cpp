@@ -7,10 +7,10 @@ public:
         }
         else {
             for (int i = start; i <= n; i++) {
-                    comb.push_back(i);
-                    backtrack(n, k, res, comb, i+1);
-                    comb.pop_back();
-                }
+                comb.push_back(i);
+                backtrack(n, k, res, comb, i+1);
+                comb.pop_back();
+            }
         }
     }
     
