@@ -4,6 +4,8 @@
 // binary_search(begin, end, target) ->bool (<algorithm>)
 // euqual_range(begin, end, targetRange, compareFunc) -> {firstEqualIt, lastEqualIt+1} (<algorithm>) 定义比较函数区间1<区间2：区间1的终点严格小于区间2的起点，则equal_range查找所有和target区间相交的区间
 
+// 可以利用set, map的排好序的性质，进行二分查找
+
 // Implementation 1
 // A[low] <= A[i] <  A[high]
 int binarySearch(vector<int> A, int x) {

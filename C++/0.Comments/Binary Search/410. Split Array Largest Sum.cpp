@@ -1,5 +1,6 @@
-#define LL long long
+// #define LL long long
 class Solution {
+    typedef long long LL;
 public:
     int splitArray(vector<int>& nums, int m) {
         LL l = 0, r = 0;
