@@ -1,6 +1,6 @@
 #include <algorithm>
 
-// 算法复杂度：线性，大循环里每个元素最多只处理2次
+// 算法复杂度：O(n)，大循环里每个元素最多只处理2次
 
 class Solution {
 public:
@@ -8,7 +8,7 @@ public:
         int n = nums.size();
         if (n == 0) return 1;
         int i = 0, x;
-        // 答案肯定在1-n之间
+        // 答案在1~n+1之间
         // 遍历数组，最后我们希望如果某数字x出现过，我们只让它出现一次，并放在x-1的索引位置
         // 最后满足nums[x-1] != x的最小x就是答案
         while (i < n) {

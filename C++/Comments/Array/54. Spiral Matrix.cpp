@@ -10,7 +10,7 @@ public:
         while (true) {
             res.push_back(matrix[r][c]); 
             if (res.size() == len) break;
-            matrix[r][c] = 101;
+            matrix[r][c] = 101; // 101是一个超出取值范围的数，表示已访问
             if (next == "right") {
                 if (c+1<n && matrix[r][c+1]!=101) c++;
                 else { next = "down"; r++; }
