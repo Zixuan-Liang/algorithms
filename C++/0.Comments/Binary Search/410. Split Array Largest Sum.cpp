@@ -12,7 +12,7 @@ public:
             }
         }
         LL ans =  r;
-        while (l <= r) {
+        while (l <= r) { // 循环不变量：答案必存在于[left, right]中
             LL mid = (l + r) >> 1;
             LL sum = 0;
             int cnt = 1;            
@@ -24,13 +24,13 @@ public:
                     sum += nums[i];
                 }
             }
-            if (cnt <= m) {
+            if (cnt <= m) { // 能满足当前限制，更新答案，往左查找
                 ans = min(ans, mid);
                 r = mid - 1;
-            } else {
+            } else { // 不能满足当前限制，需要提高下限
                 l = mid + 1;
             }
         }
-        return ans;
+        return ans; // 循环打破，区间长度为0，答案已经在循环中line 28逐渐更新为最优
     }
 };
