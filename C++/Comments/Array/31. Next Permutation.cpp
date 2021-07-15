@@ -16,11 +16,8 @@ public:
         }
         else {
             // 否则从该尾部的递增序列中，从后往前寻找第一个比x大的数，并与x交换（可以用二分法查找优化）
-            int index = nums.size() - 1;
-            while (nums[index] <= nums[i-1]) index--;
-            int temp = nums[i-1];
-            nums[i-1] = nums[index];
-            nums[index] = temp;
+            auto loc = upper_bound(nums.rbegin(), nums.rbegin()+nums.size()-i, nums[i-1]);
+            swap(nums[i-1], *loc);
             // 翻转与x交换过的尾部递增序列
             reverse(nums.begin()+i, nums.end());
         }
