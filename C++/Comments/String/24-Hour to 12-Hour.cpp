@@ -5,17 +5,6 @@ using namespace std;
 
 // 24 to 12
 string convert(string time) {
-
-    // C++分词
-    // vector<string> tokens;
-    // stringstream stream(time);
-    // string token;
-    // while (getline(stream, token, ':')) {
-    //     tokens.push_back(token);
-    // }
-
-    // size_t found = time.find(':');
-    // string hour = time.substr(0, size_t);
     string hour = time.substr(0, 2);
 
     string suffix;
