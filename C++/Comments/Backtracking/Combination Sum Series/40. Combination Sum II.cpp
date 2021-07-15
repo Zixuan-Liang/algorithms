@@ -1,13 +1,3 @@
-struct VectorHash {
-    std::size_t operator()(const vector<int>& vec) const {
-          std::size_t seed = vec.size();
-          for(auto& i : vec) {
-            seed ^= i + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-          }
-          return seed;
-    }
-};
-
 class Solution {
             
 public:
@@ -22,6 +12,7 @@ public:
         }
         
         for (int i = start; i < candidates.size(); i++) {
+            if (i != start && candidates[i] == candidates[i - 1]) continue; // 比39. Combination Sum多这一行，避免重复组合
             comb.push_back(candidates[i]);
             backtrack(candidates, remain - candidates[i], comb, i+1, res);
             comb.pop_back();
@@ -32,11 +23,7 @@ public:
         vector<int> comb;
         vector<vector<int>> res;
         sort(candidates.begin(), candidates.end());
-        backtrack(candidates, target, comb, 0, res);
-        
-        unordered_set<vector<int>, VectorHash> s( res.begin(), res.end() );
-        res.assign( s.begin(), s.end() );
-        
+        backtrack(candidates, target, comb, 0, res);        
         return res;
     }
 };
