@@ -3,11 +3,9 @@ public:
     int mySqrt(int x) {
         if (x < 2) return x;
         long lo = 1, hi = x/2+1;
-        long mid;
-        long square;
         while (lo < hi) {
-            mid = (lo + hi) / 2;
-            square = mid * mid;
+            long mid = lo + (hi - lo) / 2;
+            long square = mid * mid;
             if (square == x) {
                 return mid;
             }
