@@ -1,17 +1,24 @@
 class Solution {
 public:
     
-    void backtrack(int row, set<int>& mainDiag, set<int>& minorDiag, set<int>& cols, vector<string>& board, int n, int& res) {
-        if (row == n) {res++; return ;}
+    unordered_set<int> mainDiag, minorDiag, cols;
+
+    void backtrack(int row, vector<string>& board, int n, int& res) {
+        if (row == n) {
+            res++; 
+            return ;
+        }
         for (int col = 0; col < n; col++) {
             int currMainDiag = row - col;
             int currMinorDiag = row + col;
-            if (cols.find(col)!=cols.end() || mainDiag.find(currMainDiag)!=mainDiag.end() || minorDiag.find(currMinorDiag)!=minorDiag.end()) continue;
+            if (cols.count(col) || mainDiag.count(currMainDiag) || minorDiag.count(currMinorDiag)) { // 当前位置放置不了
+                continue;
+            }
             cols.insert(col);
             mainDiag.insert(currMainDiag);
             minorDiag.insert(currMinorDiag);
             board[row][col] = 'Q';
-            backtrack(row+1, mainDiag, minorDiag, cols, board, n, res);
+            backtrack(row+1, board, n, res);
             cols.erase(col);
             mainDiag.erase(currMainDiag);
             minorDiag.erase(currMinorDiag);
@@ -23,9 +30,8 @@ public:
         
         int res = 0;
         vector<string> board(n, string(n, '.'));
-        set<int> mainDiag, minorDiag, cols;        
         
-        backtrack(0, mainDiag, minorDiag, cols, board, n, res);
+        backtrack(0, board, n, res);
         
         return res;
     }
