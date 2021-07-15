@@ -14,19 +14,18 @@ public:
     
     void helper(TreeNode* root, int targetSum, vector<vector<int>>& res, vector<int>& vec) {
         if (!root) {
-            return;
-        }
-        else if (!root->left && !root->right) {
-            if (targetSum == root->val) {
-                vec.push_back(root->val);
-                res.push_back(vec);
-            }
+            return ;
         }
         else {
             vec.push_back(root->val);
-            vector<int> leftVec = vec, rightVec = vec;
-            helper(root->left, targetSum-root->val, res, leftVec);
-            helper(root->right, targetSum-root->val, res, rightVec);
+            if (targetSum == root->val && !root->left && !root->right) {
+                res.push_back(vec);
+            }
+            else {
+                helper(root->left, targetSum-root->val, res, vec);
+                helper(root->right, targetSum-root->val, res, vec);
+            }
+            vec.pop_back();
         }
     }
     
