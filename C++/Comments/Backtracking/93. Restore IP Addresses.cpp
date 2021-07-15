@@ -1,41 +1,42 @@
 class Solution {
-public:
-    
-    void backtrack(string& s, vector<string>& res, vector<string>& segments, int index) {
-        if (index == s.size()) {
-            if (segments.size() == 4) {
-                string ip = "";
-                for (int i = 0; i <= 3; i++) {
-                    if (segments[i].size() > 3) return;
-                    int num = stoi(segments[i]);
-                    if (to_string(num) != segments[i] || num > 255) return;
-                    else {
-                        if (i == 0) ip += segments[i];
-                        else ip += "." + segments[i];
-                    }
-                }
-                res.push_back(ip);
-            }
+private:
+    bool isValid(string num) {
+        int size = num.size();
+        if (size == 1) return true;
+        if (size == 2 && num[0] >= '1') return true;
+        if (size == 3 &&
+            (num[0] == '1' ||
+             num[0] == '2' && (num[1] < '5' || num[1] == '5' && num[2] <= '5')))
+            return true;
+        return false;
+    }
+    void backtrack(vector<string>& ans, vector<string>& cur, string& s, int index) {
+        if (cur.size() > 4) {
+            return;
+        }
+        else if (index == s.size() && cur.size() == 4) {
+            string ip = cur[0] + "." + cur[1] + "." + cur[2] + "." + cur[3];
+            ans.push_back(ip);
+            return;
         }
         else {
-            if (segments.size() <= 3) {
-                segments.push_back(string(1, s[index]));
-                backtrack(s, res, segments, index+1);
-                segments.pop_back();
-            }
-            if (!segments.empty()) {
-                segments.back() += string(1, s[index]);
-                backtrack(s, res, segments, index+1);
-                segments.back().pop_back();
+            for (int len = 1; len <= 3; len++) {
+                string num = s.substr(index, len);
+                if (num.size() < len) break;
+                if (isValid(num)) {
+                    cur.push_back(num);
+                    backtrack(ans, cur, s, index + len);
+                    cur.pop_back();
+                }
             }
         }
+        
     }
-    
+public:
     vector<string> restoreIpAddresses(string s) {
-        vector<string> res;
-        if (s.size() > 12) return res;
-        vector<string> segments;
-        backtrack(s, res, segments, 0);
-        return res;
+        if (s.size() > 12) return {};
+        vector<string> ans, cur;
+        backtrack(ans, cur, s, 0);
+        return ans;
     }
 };
