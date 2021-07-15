@@ -1,3 +1,9 @@
+//       时间    空间
+// 排序  nlogn    1
+// 哈希    n      n
+// 二分  nlogn    1
+
+// Floyd's Tortoise and Hare (Cycle Detection) 最优 O(n) + O(1)，而且不修改原数组
 class Solution {
 public:
 
