@@ -1,3 +1,6 @@
+// run-length encoding
+// For example, the sequence arr = [8,8,8,5,5] can be encoded to be encoding = [3,8,2,5]
+
 class RLEIterator {
     
     vector<long> count;
