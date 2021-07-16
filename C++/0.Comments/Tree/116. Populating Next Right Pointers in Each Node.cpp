@@ -45,3 +45,22 @@ public:
         return root;
     }
 };
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        queue<Node*> que;
+        if (root) que.push(root);
+        while (!que.empty()) {
+            int len = que.size();
+            for (int i = 0; i < len; i++) {
+                Node* front = que.front();
+                que.pop();
+                if (i < len-1) front->next = que.front();
+                if (front->left) que.push(front->left);
+                if (front->right) que.push(front->right);
+            }
+        }
+        return root;
+    }
+};
