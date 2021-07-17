@@ -7,9 +7,6 @@ public:
         for (int i = 0; i < wordsDict.size(); i++) {
             umap[wordsDict[i]].push_back(i);
         }
-        for (auto& [word, indices] : umap) {
-            sort(indices.begin(), indices.end());
-        }
     }
     
     int shortest(string word1, string word2) {
