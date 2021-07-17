@@ -9,23 +9,26 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-#include <stack>
+#include <algorithm>
 
 class Solution {
+    
+    int res;
+    
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
-        stack<TreeNode*> stk;
-        vector<int> res;
-        while (root || !stk.empty()) {
-            while (root) {
-                res.push_back(root->val);
-                stk.push(root);
-                root = root->left;
-            }
-            root = stk.top()->right;
-            stk.pop();
-        }
+    int goodNodes(TreeNode* root) {
+        
+        res = 0;
+        helper(root, INT_MIN);
         return res;
+        
+    }
+    
+    void helper(TreeNode* root, int maxVal){
+        if (!root) return;
+        if (root->val >= maxVal) res++;
+        int newMaxVal = max(maxVal, root->val);
+        helper(root->left, newMaxVal);
+        helper(root->right, newMaxVal);
     }
 };
