@@ -1,22 +1,18 @@
-#include <unordered_set>
-
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        int res = 0;
-        unordered_set<int> memo;
-        for (int n : nums) memo.insert(n);
-        for (int n : nums) {
-            if (memo.find(n-1) == memo.end()) {
+        unordered_set<int> uset(nums.begin(), nums.end());
+        int ans = 0;
+        for (int n : uset) {
+            if (!uset.count(n - 1)) {
                 int streak = 0;
-                int currNum = n;
-                while (memo.find(currNum) != memo.end()) {
-                    streak++;
-                    currNum++;
+                int curr = n;
+                while (uset.count(curr)) {
+                    streak++; curr++;
                 }
-                res = max(res, streak);
+                ans = max(ans, streak);
             }
         }
-        return res;
+        return ans;
     }
 };

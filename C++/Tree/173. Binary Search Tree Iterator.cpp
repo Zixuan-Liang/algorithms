@@ -11,32 +11,32 @@
  */
 class BSTIterator {
     
-    vector<int> traversal;
-    int curr;
+    stack<TreeNode*> stk;
     
 public:
     
-    void inorder(TreeNode* root, vector<int>& traversal) {
-        if (!root) {
-            return ;
+    void inorder(TreeNode* root) {
+        while (root) {
+            stk.push(root);
+            root = root->left;
         }
-        inorder(root->left, traversal);
-        traversal.push_back(root->val);
-        inorder(root->right, traversal);
     }
     
     BSTIterator(TreeNode* root) {
-        traversal.push_back(INT_MIN);
-        curr = 0;
-        inorder(root, traversal);
+        inorder(root);
     }
     
     int next() {
-        return traversal[++curr];
+        TreeNode* node = stk.top();
+        stk.pop();
+        if (node->right) {
+            inorder(node->right);
+        }
+        return node->val;
     }
     
     bool hasNext() {
-        return curr < traversal.size() - 1;
+        return !stk.empty();
     }
 };
 

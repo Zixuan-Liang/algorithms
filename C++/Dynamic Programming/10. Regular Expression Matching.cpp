@@ -1,43 +1,38 @@
-#include <unordered_map>
-
-struct PairHash{
-    std::size_t operator()(const pair<int, int>& p) const {
-        auto h1 = std::hash<int>{}(p.first);
-        auto h2 = std::hash<int>{}(p.second);
-        return h1^h2;
-    }
+struct PairHash {
+    size_t operator()(const pair<int, int>& p) const {
+        auto intHash = hash<int>();
+        return intHash(p.first) ^ intHash(p.second);
+    }  
 };
 
 class Solution {
-    unordered_map<pair<int, int>, bool, PairHash> memo;
-    string text;
-    string pattern;
-    
 public:
-    bool helper(int i, int j) {
-        bool res;
-        bool firstMatch;
-        if (memo.find({i, j}) == memo.end()) {
-            if (j == pattern.size()) {
-                res = i == text.size();
+    
+    unordered_map<pair<int, int>, bool, PairHash> dp;
+    
+    bool helper(string& s, string& p, int i, int j) {
+        if (!dp.count({i, j})) {
+            bool res;
+            if (j == p.size()) {
+                res = i == s.size();
             }
             else {
-                firstMatch = i < text.size() && (pattern[j] == text[i] || pattern[j] == '.');
-                if (j+1 < pattern.size() && pattern[j+1] == '*') {
-                    res = helper(i, j+2) || (firstMatch && helper(i+1, j));
+                bool firstCharMatched = i < s.size() && (s[i] == p[j] || p[j] == '.');
+                if (j + 1 < p.size() && p[j + 1] == '*') {
+                    bool matchZero = helper(s, p, i, j + 2);
+                    bool matchMore = firstCharMatched && helper(s, p, i + 1, j);
+                    res = matchZero || matchMore;
                 }
                 else {
-                    res = firstMatch && helper(i+1, j+1);
+                    res = firstCharMatched && helper(s, p, i + 1, j + 1);
                 }
             }
-            memo[{i, j}] = res;
+            dp[{i, j}] = res;
         }
-        return memo[{i, j}];
+        return dp[{i, j}];
     }
     
     bool isMatch(string s, string p) {
-        text = s;
-        pattern = p;
-        return helper(0, 0);
+        return helper(s, p, 0, 0);
     }
 };

@@ -12,31 +12,34 @@ class Solution {
     
 public:
 
-    int attempt(vector<int>& arr1, vector<int>& arr2, int index, int beatThis) {
-        pair<int, int> key = {index, beatThis};
+    int attempt(vector<int>& arr1, vector<int>& arr2, int index, int prev) {
+        pair<int, int> key = {index, prev};
         if (memo.count(key)) return memo[key];
         if (index == arr1.size()) {
             memo[key] = 0;
             return 0;
         }
+        
         // Don't replace arr1[index]
         int res1;
-        if (beatThis < arr1[index]) {
+        if (prev < arr1[index]) { // dp[index+1][new prev found in arr1]
             res1 = attempt(arr1, arr2, index+1, arr1[index]);
         }
-        else {
+        else { // Smaller than the previous, if not replace, then violate the rule
             res1 = 1e9;
         }
-        auto upper = upper_bound(arr2.begin(), arr2.end(), beatThis);
+        
         // Replace arr1[index]
+        auto upper = upper_bound(arr2.begin(), arr2.end(), prev);
         int res2;
-        if (upper == arr2.end()) {
+        if (upper == arr2.end()) { // Can't find shit to replace it
             res2 = 1e9;
         }
-        else {
-            int tmp = *upper;
-            res2 = attempt(arr1, arr2, index+1, tmp);
+        else { // dp[index+1][new prev after replace]
+            res2 = attempt(arr1, arr2, index+1, *upper);
         }
+        
+        // dp[index][prev] = min(dp[index+1][new prev after not replace], dp[index+1][new prev after replace])
         int res = min(res1, res2+1);
         memo[key] = res;
         return res;
