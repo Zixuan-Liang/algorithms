@@ -42,7 +42,7 @@ public:
             while (i<edgeList.size()&&edgeList[i][2]<q[2]) 
                 dsu.Union(edgeList[i][0],edgeList[i++][1]);
 			
-			//If parents are same we know that their is a path.
+			//If parents are same we know that there is a path.
             result[q.back()]=dsu.Find(q[0]) == dsu.Find(q[1]);
         }
         return result;
