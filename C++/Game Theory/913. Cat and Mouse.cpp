@@ -1,86 +1,81 @@
-// First you need understand the N position and P postion from Combinatorial Game Theory.
-// P-Position is previous player win, N-Position is next player (current player) win.
-// A position is a N-Position as long as one of its following positions is P-Position, i.e. if current player take this move, in next turn he as the previous player is guaranteed to win.
-// A position is a P-Position only if all its following positions are N-Position, i.e. no matter how current player move, the previous player is guaranteed to win in next turn.
-
-// The algorithm:
-
-// Initalize cat win or mouse win final states:
-// Mouse Win: mouse is at the hole.
-// Cat Win: cat is over mouse.
-// Push them into a queue.
-// Pop out a known state from queue:
-// a. N-positon. If it's a mouse win, mark the connected neighbor node's mouse turn as mouse win.
-// If it's a cat win, mark the connected neighbor node's cat turn as cat win.
-// b. P-position, topological sort. Since current node as a child of the neighbor has been check, we reduce the indegree of the other turn of the neighbor by 1.
-// By "other turn of the neighbor", it means if it's mouse win, reduce indegree of cat turn of neighbor by 1. If the indegree of the other turn of the neighbor becomes 0, means the neighbor in this state has no choice (P position).
-// How about draw? Because in every step, we only count into definite winning state (cat or mouse win), so if a node's degree reduced to 0, all it's children must be in a definite winning state, that's why above P position assertion is correct.
-
-class Solution{
+class Solution {
 public:
-    int catMouseGame(vector<vector<int>>& graph) {
-        int n = graph.size();
-        vector<vector<vector<char>>> states(n, vector<vector<char>>(n, vector<char>(2, Draw)));
-        vector<vector<vector<int>>> indegree(n, vector<vector<int>>(n, vector<int>(2)));
-        queue<vector<int>> q;
-        for(int i = 0; i < n; i++){
-            if(0 != i){
-                states[0][i][MTurn] = states[0][i][CTurn] = MWin;
-                q.emplace(vector<int>{0, i, MTurn, (int)MWin});
-                q.emplace(vector<int>{0, i, CTurn, (int)MWin});
-                states[i][i][MTurn] = states[i][i][CTurn] = CWin;
-                q.emplace(vector<int>{i, i, MTurn, (int)CWin});
-                q.emplace(vector<int>{i, i, CTurn, (int)CWin});
-            }
-            for(int j = 0; j < n; j++){
-                indegree[i][j][MTurn] = graph[i].size(); // when the mouse is at i, the cat is at j, and it's mouse's turn, how many routes the mouse can go.
-                indegree[i][j][CTurn] = graph[j].size(); // when the mouse is at i, the cat is at j, and it's cat's turn, how many routes the cat can go.
-                if(find(graph[j].begin(), graph[j].end(), 0) != graph[j].end()) indegree[i][j][CTurn]--; // cat cannot move to the hole, so 0 cannot be considered as a route for cat.
-            }
-
+    
+    int n;
+    int dp[105][55][55];
+    vector<vector<int>> graph;
+    
+    // search(step,cat,mouse) 表示步数=step，猫到达位置cat，鼠到达位置mouse的情况下最终的胜负情况
+    int search(int step, int mouse, int cat) {
+        if (dp[step][mouse][cat] != -1) {
+            return dp[step][mouse][cat];
         }
-
-        while(!q.empty()){
-            int m_pos = q.front()[0], c_pos = q.front()[1], turn = q.front()[2], result = q.front()[3];
-            q.pop();
-            int prev_turn = !turn;
-            if(MTurn == prev_turn) { // previous turn is mouse's turn
-                for(auto &i : graph[m_pos]) {
-                    if(Draw == states[i][c_pos][prev_turn]) {
-                        if(MWin == result){ // N-position, the mouse found a way to escape
-                             states[i][c_pos][prev_turn] = MWin;
-                        } else { 
-                            indegree[i][c_pos][prev_turn]--; // this way is blocked by the cat
-                            if(0 == indegree[i][c_pos][prev_turn]) states[i][c_pos][prev_turn] = CWin; // P-position, the mouse has no choices
-                        }
-                        if(Draw != states[i][c_pos][prev_turn]) {
-                            q.emplace(vector<int>{i, c_pos, prev_turn, (int)states[i][c_pos][prev_turn]});
-                        }
-                    }
+        int ans;
+        if (step == 2 * (n + 1)) { // mouse到达洞最多需要n步(初始step=1) 说明mouse走n步还没达洞口 且cat也没抓住mouse
+            ans = 0;
+        }
+        else if (cat == mouse) { // cat抓住mouse
+            ans = 2;
+        }
+        else if (mouse == 0) { // mouse入洞
+            ans = 1;
+        }
+        else if (step % 2 == 1) { // 奇数步：mouse走
+            bool mouseCanWin = false;
+            bool mouseCanDraw = false;
+            // 对mouse最优的策略: 先看是否能mouse赢 再看是否能平 如果都不行则cat赢
+            for (int mouseNext : graph[mouse]) {
+                if (search(step+1, mouseNext, cat) == 1) {
+                    mouseCanWin = true;
+                    break;
                 }
-            } else { // previous turn is cat's turn
-                for(auto &i : graph[c_pos]) {
-                    if(0 == i) continue; // cat cannot be at the hole!!
-                    if(Draw == states[m_pos][i][prev_turn]) {
-                        if(CWin == result){ // N-position, the cat is guaranteed to catch the mouse in next step
-                            states[m_pos][i][prev_turn] = CWin;
-                        } else {
-                            indegree[m_pos][i][prev_turn]--; // the mouse can escape if the cat take this move
-                            if(0 == indegree[m_pos][i][prev_turn]) states[m_pos][i][prev_turn] = MWin;  // P-position, the cat has no choices
-                        }
-                        if(Draw != states[m_pos][i][prev_turn]) {
-                            q.emplace(vector<int>{m_pos, i, prev_turn, (int)states[m_pos][i][prev_turn]});
-                        }
-                    }
+                else if (search(step+1, mouseNext, cat) == 0) {
+                    mouseCanDraw = true;
                 }
             }
+            if (mouseCanWin) { // 先看是否能mouse赢
+                ans = 1;
+            }
+            else if (mouseCanDraw) { // 再看是否能平
+                ans = 0;
+            }
+            else { // 如果都不行则cat赢
+                ans = 2;
+            }
         }
-        return states[1][2][MTurn];
+        else if (step % 2 == 0) { // 偶数步: cat走
+            bool catCanWin = false;
+            bool catCanDraw = false;
+            // 对cat最优的策略: 先看是否能cat赢 再看是否能平 如果都不行则mouse赢
+            for (int catNext : graph[cat]) {
+                if (catNext != 0) {
+                    if (search(step+1, mouse, catNext) == 2) {
+                        catCanWin = true;
+                        break;
+                    }
+                    else if (search(step+1, mouse, catNext) == 0) {
+                        catCanDraw = true;
+                    }
+                }
+            }
+            if (catCanWin) { // 先看是否能cat赢
+                ans = 2;
+            }
+            else if (catCanDraw) { // 再看是否能平
+                ans = 0;
+            }
+            else { // 如果都不行则mouse赢
+                ans = 1;
+            }
+        }
+        dp[step][mouse][cat] = ans;
+        return ans;
     }
-private:
-    const int MTurn = 0;
-    const int CTurn = 1;
-    const char Draw = 0;
-    const char MWin = 1;
-    const char CWin = 2;
+    
+    int catMouseGame(vector<vector<int>>& graph) {
+        n = graph.size();
+        memset(dp, -1, sizeof(dp));
+        this->graph = graph;
+        return search(1, 1, 2);
+    }
 };
