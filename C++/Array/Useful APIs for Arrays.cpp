@@ -13,3 +13,5 @@ sort(begin(v), end(v), greater<int>()); // 从大到小排序
 
 vector<int>::iterator maxIt = max_element(begin(v), end(v)); // 最大值的位置
 auto minIt = min_element(begin(v), end(v)); // 最小值的位置
+
+// 不用temp循环赋值的办法：A, B, C, D = B, C, D, A，将A和D，C，B分别进行swap

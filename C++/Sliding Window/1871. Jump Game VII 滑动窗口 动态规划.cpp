@@ -16,9 +16,9 @@ public:
         dp[0] = true;
         for (int i = 1; i < n; ++i) {
             if (i >= minJ)
-                pre += dp[i - minJ]; // sliding window
+                pre += dp[i - minJ]; // sliding window in
             if (i > maxJ)
-                pre -= dp[i - maxJ - 1]; // sliding window
+                pre -= dp[i - maxJ - 1]; // sliding window out
             dp[i] = pre > 0 && s[i] == '0';
         }
         return dp[n - 1];
