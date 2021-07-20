@@ -16,7 +16,7 @@ bool isPrime(int x) {
     if (x <= 3) {
         return x > 1;
     }
-    if (x % 6 != 1 && num % 6 != 5) {
+    if (x % 6 != 1 && x % 6 != 5) {
         return false;
     }
     for (int i = 5; i * i <= x; i += 6) {
